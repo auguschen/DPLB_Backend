@@ -12,11 +12,11 @@
 			connectionURL="jdbc:mysql://localhost:3306/dplb?characterEncoding=utf8"
 			driverClass="com.mysql.jdbc.Driver" password="spring" userId="dplb" />
 		<javaModelGenerator targetPackage="com.airchina.xn.model"
-			targetProject="myspringcxf" />
+			targetProject="DPLB_Backend" />
 		<sqlMapGenerator targetPackage="com.airchina.xn.mapper"
-			targetProject="myspringcxf" />
+			targetProject="DPLB_Backend" />
 		<javaClientGenerator targetPackage="com.airchina.xn.dao"
-			targetProject="myspringcxf" type="XMLMAPPER" />
+			targetProject="DPLB_Backend" type="XMLMAPPER" />
     <table schema="dplb" tableName="Aircraft" />
     <table schema="dplb" tableName="FlightCheck" />
     <table schema="dplb" tableName="FlightTraining" />
