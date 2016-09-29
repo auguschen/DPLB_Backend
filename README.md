@@ -1,3 +1,3 @@
-# myspringcxf
+# DPLB Backend
 
-spring druid mybatis cxf
+Restful Web Service for DPLB
