@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.SummaryoflogbooksMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Summaryoflogbooks">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Pilot_ID" jdbcType="INTEGER" property="pilotId" />
+    <result column="Landings_Day" jdbcType="INTEGER" property="landingsDay" />
+    <result column="Landings_Night" jdbcType="INTEGER" property="landingsNight" />
+    <result column="Takeoffs_Day" jdbcType="INTEGER" property="takeoffsDay" />
+    <result column="Takeoffs_Night" jdbcType="INTEGER" property="takeoffsNight" />
+    <result column="Flight_Time_PIC" jdbcType="VARCHAR" property="flightTimePic" />
+    <result column="Flight_Time_FO" jdbcType="VARCHAR" property="flightTimeFo" />
+    <result column="Flight_Time_Night" jdbcType="VARCHAR" property="flightTimeNight" />
+    <result column="Training_Landings_Day" jdbcType="VARCHAR" property="trainingLandingsDay" />
+    <result column="Training_Landings_Night" jdbcType="VARCHAR" property="trainingLandingsNight" />
+    <result column="Training_Takeoffs_Day" jdbcType="INTEGER" property="trainingTakeoffsDay" />
+    <result column="Training_Takeoffs_Night" jdbcType="INTEGER" property="trainingTakeoffsNight" />
+    <result column="Training_Time_Giving" jdbcType="VARCHAR" property="trainingTimeGiving" />
+    <result column="Training_Time_Receiving" jdbcType="VARCHAR" property="trainingTimeReceiving" />
+    <result column="Training_Time_Night" jdbcType="VARCHAR" property="trainingTimeNight" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SummaryOfLogbooks
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Summaryoflogbooks">
+    insert into SummaryOfLogbooks (id, Pilot_ID, Landings_Day, 
+      Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+      Flight_Time_PIC, Flight_Time_FO, Flight_Time_Night, 
+      Training_Landings_Day, Training_Landings_Night, 
+      Training_Takeoffs_Day, Training_Takeoffs_Night, 
+      Training_Time_Giving, Training_Time_Receiving, 
+      Training_Time_Night, Create_Time)
+    values (#{id,jdbcType=INTEGER}, #{pilotId,jdbcType=INTEGER}, #{landingsDay,jdbcType=INTEGER}, 
+      #{landingsNight,jdbcType=INTEGER}, #{takeoffsDay,jdbcType=INTEGER}, #{takeoffsNight,jdbcType=INTEGER}, 
+      #{flightTimePic,jdbcType=VARCHAR}, #{flightTimeFo,jdbcType=VARCHAR}, #{flightTimeNight,jdbcType=VARCHAR}, 
+      #{trainingLandingsDay,jdbcType=VARCHAR}, #{trainingLandingsNight,jdbcType=VARCHAR}, 
+      #{trainingTakeoffsDay,jdbcType=INTEGER}, #{trainingTakeoffsNight,jdbcType=INTEGER}, 
+      #{trainingTimeGiving,jdbcType=VARCHAR}, #{trainingTimeReceiving,jdbcType=VARCHAR}, 
+      #{trainingTimeNight,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Summaryoflogbooks" useGeneratedKeys="true" keyProperty="id">
+    insert into SummaryOfLogbooks (Pilot_ID, Landings_Day, 
+      Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+      Flight_Time_PIC, Flight_Time_FO, Flight_Time_Night, 
+      Training_Landings_Day, Training_Landings_Night, 
+      Training_Takeoffs_Day, Training_Takeoffs_Night, 
+      Training_Time_Giving, Training_Time_Receiving, 
+      Training_Time_Night)
+    values (#{pilotId,jdbcType=INTEGER}, #{landingsDay,jdbcType=INTEGER}, 
+      #{landingsNight,jdbcType=INTEGER}, #{takeoffsDay,jdbcType=INTEGER}, #{takeoffsNight,jdbcType=INTEGER}, 
+      #{flightTimePic,jdbcType=VARCHAR}, #{flightTimeFo,jdbcType=VARCHAR}, #{flightTimeNight,jdbcType=VARCHAR}, 
+      #{trainingLandingsDay,jdbcType=VARCHAR}, #{trainingLandingsNight,jdbcType=VARCHAR}, 
+      #{trainingTakeoffsDay,jdbcType=INTEGER}, #{trainingTakeoffsNight,jdbcType=INTEGER}, 
+      #{trainingTimeGiving,jdbcType=VARCHAR}, #{trainingTimeReceiving,jdbcType=VARCHAR}, 
+      #{trainingTimeNight,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Summaryoflogbooks">
+    update SummaryOfLogbooks
+    set Pilot_ID = #{pilotId,jdbcType=INTEGER},
+      Landings_Day = #{landingsDay,jdbcType=INTEGER},
+      Landings_Night = #{landingsNight,jdbcType=INTEGER},
+      Takeoffs_Day = #{takeoffsDay,jdbcType=INTEGER},
+      Takeoffs_Night = #{takeoffsNight,jdbcType=INTEGER},
+      Flight_Time_PIC = #{flightTimePic,jdbcType=VARCHAR},
+      Flight_Time_FO = #{flightTimeFo,jdbcType=VARCHAR},
+      Flight_Time_Night = #{flightTimeNight,jdbcType=VARCHAR},
+      Training_Landings_Day = #{trainingLandingsDay,jdbcType=VARCHAR},
+      Training_Landings_Night = #{trainingLandingsNight,jdbcType=VARCHAR},
+      Training_Takeoffs_Day = #{trainingTakeoffsDay,jdbcType=INTEGER},
+      Training_Takeoffs_Night = #{trainingTakeoffsNight,jdbcType=INTEGER},
+      Training_Time_Giving = #{trainingTimeGiving,jdbcType=VARCHAR},
+      Training_Time_Receiving = #{trainingTimeReceiving,jdbcType=VARCHAR},
+      Training_Time_Night = #{trainingTimeNight,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Pilot_ID, Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+    Flight_Time_PIC, Flight_Time_FO, Flight_Time_Night, Training_Landings_Day, Training_Landings_Night, 
+    Training_Takeoffs_Day, Training_Takeoffs_Night, Training_Time_Giving, Training_Time_Receiving, 
+    Training_Time_Night, Create_Time
+    from SummaryOfLogbooks
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Pilot_ID, Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+    Flight_Time_PIC, Flight_Time_FO, Flight_Time_Night, Training_Landings_Day, Training_Landings_Night, 
+    Training_Takeoffs_Day, Training_Takeoffs_Night, Training_Time_Giving, Training_Time_Receiving, 
+    Training_Time_Night, Create_Time
+    from SummaryOfLogbooks
+  </select>
+  
+  <select id="selectByPilotID" resultMap="BaseResultMap">
+    select id, Pilot_ID, Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+    Flight_Time_PIC, Flight_Time_FO, Flight_Time_Night, Training_Landings_Day, Training_Landings_Night, 
+    Training_Takeoffs_Day, Training_Takeoffs_Night, Training_Time_Giving, Training_Time_Receiving, 
+    Training_Time_Night, Create_Time
+    from SummaryOfLogbooks
+    where Pilot_ID = #{Pilot_ID, jdbcType=INTEGER}
+  </select>
+  
+</mapper>

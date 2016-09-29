@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.PilotMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Pilot">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Birthdate" jdbcType="DATE" property="birthdate" />
+    <result column="Nationnality" jdbcType="VARCHAR" property="nationnality" />
+    <result column="MailAddress" jdbcType="VARCHAR" property="mailaddress" />
+    <result column="PostCode" jdbcType="VARCHAR" property="postcode" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Cell" jdbcType="VARCHAR" property="cell" />
+    <result column="License_No" jdbcType="VARCHAR" property="licenseNo" />
+    <result column="FIle_No" jdbcType="VARCHAR" property="fileNo" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Staff_Number" jdbcType="VARCHAR" property="staffNumber" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="Photo" jdbcType="LONGVARBINARY" property="photo" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Pilot
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Pilot">
+    insert into Pilot (id, Name, Birthdate, 
+      Nationnality, MailAddress, PostCode, 
+      Tel, Cell, License_No, 
+      FIle_No, Status, Staff_Number, 
+      Create_Time, Photo)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{birthdate,jdbcType=DATE}, 
+      #{nationnality,jdbcType=VARCHAR}, #{mailaddress,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{cell,jdbcType=VARCHAR}, #{licenseNo,jdbcType=VARCHAR}, 
+      #{fileNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{staffNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{photo,jdbcType=LONGVARBINARY})
+  </insert>
+
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Pilot" useGeneratedKeys="true" keyProperty="id">
+    insert into Pilot (Name, Birthdate, 
+      Nationnality, MailAddress, PostCode, 
+      Tel, Cell, License_No, 
+      FIle_No, Status, Staff_Number, 
+      Photo)
+    values (#{name,jdbcType=VARCHAR}, #{birthdate,jdbcType=DATE}, 
+      #{nationnality,jdbcType=VARCHAR}, #{mailaddress,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{cell,jdbcType=VARCHAR}, #{licenseNo,jdbcType=VARCHAR}, 
+      #{fileNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{staffNumber,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=LONGVARBINARY})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Pilot">
+    update Pilot
+    set Name = #{name,jdbcType=VARCHAR},
+      Birthdate = #{birthdate,jdbcType=DATE},
+      Nationnality = #{nationnality,jdbcType=VARCHAR},
+      MailAddress = #{mailaddress,jdbcType=VARCHAR},
+      PostCode = #{postcode,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR},
+      Cell = #{cell,jdbcType=VARCHAR},
+      License_No = #{licenseNo,jdbcType=VARCHAR},
+      FIle_No = #{fileNo,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=INTEGER},
+      Staff_Number = #{staffNumber,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP},
+      Photo = #{photo,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Name, Birthdate, Nationnality, MailAddress, PostCode, Tel, Cell, License_No, 
+    FIle_No, Status, Staff_Number, Create_Time, Photo
+    from Pilot
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Name, Birthdate, Nationnality, MailAddress, PostCode, Tel, Cell, License_No, 
+    FIle_No, Status, Staff_Number, Create_Time, Photo
+    from Pilot
+  </select>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select id, Name, Birthdate, Nationnality, MailAddress, PostCode, Tel, Cell, License_No, 
+    FIle_No, Status, Staff_Number, Create_Time, Photo
+    from Pilot
+    where Name = #{PilotName, jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByLicenseNo" resultMap="BaseResultMap">
+    select id, Name, Birthdate, Nationnality, MailAddress, PostCode, Tel, Cell, License_No, 
+    FIle_No, Status, Staff_Number, Create_Time, Photo
+    from Pilot
+    where License_No = #{LicenseNumber, jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByStaffNumber" resultMap="BaseResultMap">
+    select id, Name, Birthdate, Nationnality, MailAddress, PostCode, Tel, Cell, License_No, 
+    FIle_No, Status, Staff_Number, Create_Time, Photo
+    from Pilot
+    where Staff_Number = #{StaffNumber, jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

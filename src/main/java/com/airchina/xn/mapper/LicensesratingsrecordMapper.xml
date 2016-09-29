@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.LicensesratingsrecordMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Licensesratingsrecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Pilot_ID" jdbcType="INTEGER" property="pilotId" />
+    <result column="Licenses" jdbcType="VARCHAR" property="licenses" />
+    <result column="License_Date" jdbcType="DATE" property="licenseDate" />
+    <result column="Rating" jdbcType="VARCHAR" property="rating" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from LicensesRatingsRecord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Licensesratingsrecord">
+    insert into LicensesRatingsRecord (id, Pilot_ID, Licenses, 
+      License_Date, Rating, Remarks, 
+      Create_Time)
+    values (#{id,jdbcType=INTEGER}, #{pilotId,jdbcType=INTEGER}, #{licenses,jdbcType=VARCHAR}, 
+      #{licenseDate,jdbcType=DATE}, #{rating,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Licensesratingsrecord">
+    update LicensesRatingsRecord
+    set Pilot_ID = #{pilotId,jdbcType=INTEGER},
+      Licenses = #{licenses,jdbcType=VARCHAR},
+      License_Date = #{licenseDate,jdbcType=DATE},
+      Rating = #{rating,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Pilot_ID, Licenses, License_Date, Rating, Remarks, Create_Time
+    from LicensesRatingsRecord
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Pilot_ID, Licenses, License_Date, Rating, Remarks, Create_Time
+    from LicensesRatingsRecord
+  </select>
+
+  <select id="selectAllByPilotID" resultMap="BaseResultMap">
+    select id, Pilot_ID, Licenses, License_Date, Rating, Remarks, Create_Time
+    from LicensesRatingsRecord
+    where Pilot_ID = #{Pilot_ID, jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Licensesratingsrecord" useGeneratedKeys="true" keyProperty="id">
+    insert into LicensesRatingsRecord (Pilot_ID, Licenses, 
+      License_Date, Rating, Remarks)
+    values (#{pilotId,jdbcType=INTEGER}, #{licenses,jdbcType=VARCHAR}, 
+      #{licenseDate,jdbcType=DATE}, #{rating,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

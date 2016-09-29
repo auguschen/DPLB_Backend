@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.SimulatortrainingMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Simulatortraining">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Pilot_ID" jdbcType="INTEGER" property="pilotId" />
+    <result column="Flight_Date" jdbcType="DATE" property="flightDate" />
+    <result column="Type_Of_Aircraft" jdbcType="VARCHAR" property="typeOfAircraft" />
+    <result column="Cert_No" jdbcType="VARCHAR" property="certNo" />
+    <result column="Level_Of_Simulator" jdbcType="VARCHAR" property="levelOfSimulator" />
+    <result column="FTO" jdbcType="VARCHAR" property="fto" />
+    <result column="Type_of_Training_or_Check" jdbcType="VARCHAR" property="typeOfTrainingOrCheck" />
+    <result column="Training_Time_From" jdbcType="VARCHAR" property="trainingTimeFrom" />
+    <result column="Training_Time_To" jdbcType="VARCHAR" property="trainingTimeTo" />
+    <result column="Training_Time_Time" jdbcType="VARCHAR" property="trainingTimeTime" />
+    <result column="Landings_Day" jdbcType="INTEGER" property="landingsDay" />
+    <result column="Landings_Night" jdbcType="INTEGER" property="landingsNight" />
+    <result column="Takeoffs_Day" jdbcType="INTEGER" property="takeoffsDay" />
+    <result column="Takeoffs_Night" jdbcType="INTEGER" property="takeoffsNight" />
+    <result column="Signature" jdbcType="VARCHAR" property="signature" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SimulatorTraining
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Simulatortraining">
+    insert into SimulatorTraining (id, Pilot_ID, Flight_Date, 
+      Type_Of_Aircraft, Cert_No, Level_Of_Simulator, 
+      FTO, Type_of_Training_or_Check, Training_Time_From, 
+      Training_Time_To, Training_Time_Time, Landings_Day, 
+      Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+      Signature, Remarks, Create_Time
+      )
+    values (#{id,jdbcType=INTEGER}, #{pilotId,jdbcType=INTEGER}, #{flightDate,jdbcType=DATE}, 
+      #{typeOfAircraft,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR}, #{levelOfSimulator,jdbcType=VARCHAR}, 
+      #{fto,jdbcType=VARCHAR}, #{typeOfTrainingOrCheck,jdbcType=VARCHAR}, #{trainingTimeFrom,jdbcType=VARCHAR}, 
+      #{trainingTimeTo,jdbcType=VARCHAR}, #{trainingTimeTime,jdbcType=VARCHAR}, #{landingsDay,jdbcType=INTEGER}, 
+      #{landingsNight,jdbcType=INTEGER}, #{takeoffsDay,jdbcType=INTEGER}, #{takeoffsNight,jdbcType=INTEGER}, 
+      #{signature,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+   
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Simulatortraining" useGeneratedKeys="true" keyProperty="id">
+    insert into SimulatorTraining (Pilot_ID, Flight_Date, 
+      Type_Of_Aircraft, Cert_No, Level_Of_Simulator, 
+      FTO, Type_of_Training_or_Check, Training_Time_From, 
+      Training_Time_To, Training_Time_Time, Landings_Day, 
+      Landings_Night, Takeoffs_Day, Takeoffs_Night, 
+      Signature, Remarks)
+    values (#{pilotId,jdbcType=INTEGER}, #{flightDate,jdbcType=DATE}, 
+      #{typeOfAircraft,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR}, #{levelOfSimulator,jdbcType=VARCHAR}, 
+      #{fto,jdbcType=VARCHAR}, #{typeOfTrainingOrCheck,jdbcType=VARCHAR}, #{trainingTimeFrom,jdbcType=VARCHAR}, 
+      #{trainingTimeTo,jdbcType=VARCHAR}, #{trainingTimeTime,jdbcType=VARCHAR}, #{landingsDay,jdbcType=INTEGER}, 
+      #{landingsNight,jdbcType=INTEGER}, #{takeoffsDay,jdbcType=INTEGER}, #{takeoffsNight,jdbcType=INTEGER}, 
+      #{signature,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Simulatortraining">
+    update SimulatorTraining
+    set Pilot_ID = #{pilotId,jdbcType=INTEGER},
+      Flight_Date = #{flightDate,jdbcType=DATE},
+      Type_Of_Aircraft = #{typeOfAircraft,jdbcType=VARCHAR},
+      Cert_No = #{certNo,jdbcType=VARCHAR},
+      Level_Of_Simulator = #{levelOfSimulator,jdbcType=VARCHAR},
+      FTO = #{fto,jdbcType=VARCHAR},
+      Type_of_Training_or_Check = #{typeOfTrainingOrCheck,jdbcType=VARCHAR},
+      Training_Time_From = #{trainingTimeFrom,jdbcType=VARCHAR},
+      Training_Time_To = #{trainingTimeTo,jdbcType=VARCHAR},
+      Training_Time_Time = #{trainingTimeTime,jdbcType=VARCHAR},
+      Landings_Day = #{landingsDay,jdbcType=INTEGER},
+      Landings_Night = #{landingsNight,jdbcType=INTEGER},
+      Takeoffs_Day = #{takeoffsDay,jdbcType=INTEGER},
+      Takeoffs_Night = #{takeoffsNight,jdbcType=INTEGER},
+      Signature = #{signature,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Pilot_ID, Flight_Date, Type_Of_Aircraft, Cert_No, Level_Of_Simulator, 
+    FTO, Type_of_Training_or_Check, Training_Time_From, Training_Time_To, Training_Time_Time, 
+    Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, Signature, Remarks, Create_Time
+    from SimulatorTraining
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Pilot_ID, Flight_Date, Type_Of_Aircraft, Cert_No, Level_Of_Simulator, 
+    FTO, Type_of_Training_or_Check, Training_Time_From, Training_Time_To, Training_Time_Time, 
+    Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, Signature, Remarks, Create_Time
+    from SimulatorTraining
+  </select>
+  
+  <select id="selectByPilotID" resultMap="BaseResultMap">
+    select id, Pilot_ID, Flight_Date, Type_Of_Aircraft, Cert_No, Level_Of_Simulator, 
+    FTO, Type_of_Training_or_Check, Training_Time_From, Training_Time_To, Training_Time_Time, 
+    Landings_Day, Landings_Night, Takeoffs_Day, Takeoffs_Night, Signature, Remarks, Create_Time
+    from SimulatorTraining
+    where Pilot_ID = #{Pilot_ID,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.AircraftMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Aircraft">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Type_Catalog" jdbcType="VARCHAR" property="typeCatalog" />
+    <result column="Type_Of_Aircraft" jdbcType="VARCHAR" property="typeOfAircraft" />
+    <result column="Aircraft_Description" jdbcType="VARCHAR" property="aircraftDescription" />
+    <result column="Registered_Number" jdbcType="VARCHAR" property="registeredNumber" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Aircraft
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Aircraft">
+    insert into Aircraft (id, Type_Catalog, Type_Of_Aircraft, 
+      Aircraft_Description, Registered_Number, 
+      Create_Time)
+    values (#{id,jdbcType=INTEGER}, #{typeCatalog,jdbcType=VARCHAR}, #{typeOfAircraft,jdbcType=VARCHAR}, 
+      #{aircraftDescription,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Aircraft" useGeneratedKeys="true" keyProperty="id">
+    insert into Aircraft (Type_Catalog, Type_Of_Aircraft, 
+      Aircraft_Description, Registered_Number)
+    values (#{typeCatalog,jdbcType=VARCHAR}, #{typeOfAircraft,jdbcType=VARCHAR}, 
+      #{aircraftDescription,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Aircraft">
+    update Aircraft
+    set Type_Catalog = #{typeCatalog,jdbcType=VARCHAR},
+      Type_Of_Aircraft = #{typeOfAircraft,jdbcType=VARCHAR},
+      Aircraft_Description = #{aircraftDescription,jdbcType=VARCHAR},
+      Registered_Number = #{registeredNumber,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Type_Catalog, Type_Of_Aircraft, Aircraft_Description, Registered_Number, 
+    Create_Time
+    from Aircraft
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Type_Catalog, Type_Of_Aircraft, Aircraft_Description, Registered_Number, 
+    Create_Time
+    from Aircraft
+  </select>
+  
+  <select id="selectAllPaged" resultMap="BaseResultMap">
+    select id, Type_Catalog, Type_Of_Aircraft, Aircraft_Description, Registered_Number, 
+    Create_Time
+    from Aircraft
+    where id > #{currentPage,jdbcType=INTEGER} * #{countPerPage,jdbcType=INTEGER}
+    limit 0, #{countPerPage,jdbcType=INTEGER}
+  </select>
+  <select id="selectByRegNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, Type_Catalog, Type_Of_Aircraft, Aircraft_Description, Registered_Number, 
+    Create_Time
+    from Aircraft
+    where Registered_Number = #{registeredNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByType" parameterType="map" resultMap="BaseResultMap">
+    select id, Type_Catalog, Type_Of_Aircraft, Aircraft_Description, Registered_Number, 
+    Create_Time
+    from Aircraft
+    where Type_Catalog = #{Type_Catalog,jdbcType=VARCHAR} and Type_Of_Aircraft = #{Type_Of_Aircraft,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByTypePaged" parameterType="map" resultMap="BaseResultMap">
+    select * from (
+    select @rownum:=@rownum+1 as RowNum, A.id, A.Type_Catalog, A.Type_Of_Aircraft, A.Aircraft_Description, A.Registered_Number, 
+    A.Create_Time
+    from Aircraft A, (select @rownum:=0) R
+    where A.Type_Catalog = #{Type_Catalog,jdbcType=VARCHAR} and A.Type_Of_Aircraft = #{Type_Of_Aircraft,jdbcType=VARCHAR}
+    ) AR
+    where RowNum > #{currentPage,jdbcType=INTEGER} * #{countPerPage,jdbcType=INTEGER}
+    limit 0, #{countPerPage,jdbcType=INTEGER}
+  </select>
+  
+  
+</mapper>

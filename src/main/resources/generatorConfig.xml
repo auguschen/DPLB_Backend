@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry
+		location="/Users/augus/maven_repository/maven/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar" />
+	<context id="context1" targetRuntime="MyBatis3Simple">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+      <property name="addRemarkComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection
+			connectionURL="jdbc:mysql://localhost:3306/dplb?characterEncoding=utf8"
+			driverClass="com.mysql.jdbc.Driver" password="spring" userId="dplb" />
+		<javaModelGenerator targetPackage="com.airchina.xn.model"
+			targetProject="myspringcxf" />
+		<sqlMapGenerator targetPackage="com.airchina.xn.mapper"
+			targetProject="myspringcxf" />
+		<javaClientGenerator targetPackage="com.airchina.xn.dao"
+			targetProject="myspringcxf" type="XMLMAPPER" />
+    <table schema="dplb" tableName="Aircraft" />
+    <table schema="dplb" tableName="FlightCheck" />
+    <table schema="dplb" tableName="FlightTraining" />
+    <table schema="dplb" tableName="LicensesRatingsRecord" />
+    <table schema="dplb" tableName="Pilot" />
+    <table schema="dplb" tableName="RoutineFlight" />
+    <table schema="dplb" tableName="SimulatorTraining" />
+    <table schema="dplb" tableName="SummaryOfLogbooks" />
+    <table schema="dplb" tableName="Logs" />
+    <table schema="dplb" tableName="Parameters" />
+
+	</context>
+</generatorConfiguration>
