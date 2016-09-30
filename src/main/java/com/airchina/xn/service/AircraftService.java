@@ -13,9 +13,9 @@ public interface AircraftService {
 
 	public Aircraft getAircraftByRegNo(String regno);
 
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft);
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft);
 
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft, PageParam pp);
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft, PageParam pp);
 
 	public Aircraft newAircraft(Aircraft ac);
 

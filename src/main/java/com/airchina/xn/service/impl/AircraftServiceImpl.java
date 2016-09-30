@@ -37,8 +37,8 @@ public class AircraftServiceImpl implements AircraftService {
 	}
 
 	@Override
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft) {
-		return aircraftmapper.selectByType(typecatalog, typeafaircraft);
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft) {
+		return aircraftmapper.selectByType(typecatalog, typeofaircraft);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class AircraftServiceImpl implements AircraftService {
 	}
 
 	@Override
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft, PageParam pp) {
-		return aircraftmapper.selectByTypePaged(typecatalog, typeafaircraft, pp.getOffsetStart(), pp.getCountPerPage(), pp.getCurrentPage());
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft, PageParam pp) {
+		return aircraftmapper.selectByTypePaged(typecatalog, typeofaircraft, pp.getOffsetStart(), pp.getCountPerPage(), pp.getCurrentPage());
 	}
 
 

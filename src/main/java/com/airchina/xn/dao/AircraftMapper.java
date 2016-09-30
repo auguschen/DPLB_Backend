@@ -22,10 +22,10 @@ public interface AircraftMapper {
 	Aircraft selectByRegNo(String regno);
 
 	List<Aircraft> selectByType(@Param("Type_Catalog") String typecatalog,
-			@Param("Type_Of_Aircraft") String typeafaircraft);
+			@Param("Type_Of_Aircraft") String typeofaircraft);
 
 	List<Aircraft> selectByTypePaged(@Param("Type_Catalog") String typecatalog,
-			@Param("Type_Of_Aircraft") String typeafaircraft, @Param("pageStart") Integer pageStart,
+			@Param("Type_Of_Aircraft") String typeofaircraft, @Param("pageStart") Integer pageStart,
 			@Param("countPerPage") Integer countPerPage, @Param("currentPage") Integer currentPage);
 
 	int insertWithoutID(Aircraft record);

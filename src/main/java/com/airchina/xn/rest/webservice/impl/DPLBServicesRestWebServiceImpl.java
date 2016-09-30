@@ -80,9 +80,9 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/ac/get/{Type_Catalog}&{Type_Of_Aircraft}&{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Aircraft> getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
-			@PathParam("Type_Of_Aircraft") String typeafaircraft, @PathParam("pageStart") Integer pageStart,
+			@PathParam("Type_Of_Aircraft") String typeofaircraft, @PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeafaircraft, new PageParam(pageStart, countPerPage, currentPage));
+		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeofaircraft, new PageParam(pageStart, countPerPage, currentPage));
 		return acList != null ? acList : new ArrayList<Aircraft>();
 	}
 
@@ -91,8 +91,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/ac/get/{Type_Catalog}&{Type_Of_Aircraft}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Aircraft> getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
-			@PathParam("Type_Of_Aircraft") String typeafaircraft) {
-		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeafaircraft);
+			@PathParam("Type_Of_Aircraft") String typeofaircraft) {
+		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeofaircraft);
 		return acList != null ? acList : new ArrayList<Aircraft>();
 	}
 

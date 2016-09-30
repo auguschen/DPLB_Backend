@@ -11,8 +11,8 @@ public interface DPLBServicesRestWebService {
 //	根据飞机注册号查询航空器
 	public Aircraft getAircraftByRegNo(String regno);
 //	根据飞机型别机型查询航空器
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft);
-	public List<Aircraft> getAircraftByType(String typecatalog, String typeafaircraft, Integer pageStart, Integer countPerPage, Integer currentPage);
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft);
+	public List<Aircraft> getAircraftByType(String typecatalog, String typeofaircraft, Integer pageStart, Integer countPerPage, Integer currentPage);
 //	查询所有航空器
 	public List<Aircraft> getAllAircraft();
 	public List<Aircraft> getAllAircraft(Integer pageStart, Integer countPerPage, Integer currentPage);
