@@ -105,12 +105,18 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-		<profile>
-			<id>iot</id>
-			<properties>
-				<env>iot</env>
-			</properties>
-		</profile>
+    <profile>
+      <id>iot</id>
+      <properties>
+        <env>iot</env>
+      </properties>
+    </profile>
+    <profile>
+      <id>docker</id>
+      <properties>
+        <env>docker</env>
+      </properties>
+    </profile>
 	</profiles>
 	<build>
 		<plugins>
