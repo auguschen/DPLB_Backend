@@ -112,9 +112,9 @@
       </properties>
     </profile>
     <profile>
-      <id>docker</id>
+      <id>dockerhomeserver</id>
       <properties>
-        <env>docker</env>
+        <env>dockerhomeserver</env>
       </properties>
     </profile>
 	</profiles>
