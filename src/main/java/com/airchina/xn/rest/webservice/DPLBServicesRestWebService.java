@@ -2,6 +2,9 @@ package com.airchina.xn.rest.webservice;
 
 import java.util.List;
 
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+
+import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Aircraft;
 import com.airchina.xn.model.Logs;
 import com.airchina.xn.model.Parameters;
@@ -49,4 +52,6 @@ public interface DPLBServicesRestWebService {
 	public List<Parameters> getParametersByName(String parameterName);
 	public List<Parameters> getParametersByName(String parameterName, Integer pageStart, Integer countPerPage, Integer currentPage);
 	
+//	上传文件
+	public UploadFileEntity uploadOneFile(Attachment attachment);
 }

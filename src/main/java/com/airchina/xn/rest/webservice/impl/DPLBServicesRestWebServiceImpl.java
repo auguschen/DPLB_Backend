@@ -1,8 +1,13 @@
 package com.airchina.xn.rest.webservice.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.DataHandler;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,12 +17,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.airchina.xn.utils.FileUtils;
 import com.airchina.xn.common.PageParam;
+import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Aircraft;
 import com.airchina.xn.model.Logs;
 import com.airchina.xn.model.Parameters;
@@ -265,6 +274,52 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	public List<Parameters> getParametersByName(@PathParam("parametername") String parameterName, @PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
 		return parameterservice.getParametersByName(parameterName, new PageParam(pageStart, countPerPage, currentPage));
+	}
+
+	
+//	private String getFileName(MultivaluedMap<String, String> header) {
+//		String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
+//		for (String filename : contentDisposition) {
+//			if ((filename.trim().startsWith("filename"))) {
+//				String[] name = filename.split("=");
+//				String exactFileName = name[1].trim().replaceAll("\"", "");
+//				return exactFileName;
+//			}
+//		}
+//		return "unknown";
+//	}
+	
+	@Override
+	@POST
+	@Path("/uploadfile")
+	@Consumes({MediaType.MULTIPART_FORM_DATA})
+	@Produces({MediaType.APPLICATION_JSON})
+	public UploadFileEntity uploadOneFile(Attachment attachment) {
+		UploadFileEntity ufn = new UploadFileEntity();
+		
+		DataHandler handler = attachment.getDataHandler();
+		try {
+			InputStream stream = handler.getInputStream();
+			MultivaluedMap<String,String> map = attachment.getHeaders();
+			System.out.println("filename: " + FileUtils.getFileName(map));
+			OutputStream out = new FileOutputStream(new File("/tmp/" + FileUtils.getFileName(map)));
+			
+			ufn.setFileNameOnServer(FileUtils.getFileName(map));
+			
+			Integer read = 0;
+			byte[] bytes = new byte[1024];
+			while ((read = stream.read(bytes)) != -1){
+				out.write(bytes, 0, read);
+			}
+			stream.close();
+			out.flush();
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ufn;
 	}
 
 }
