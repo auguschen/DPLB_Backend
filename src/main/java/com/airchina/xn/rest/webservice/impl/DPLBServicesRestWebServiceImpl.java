@@ -277,18 +277,6 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	}
 
 	
-//	private String getFileName(MultivaluedMap<String, String> header) {
-//		String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
-//		for (String filename : contentDisposition) {
-//			if ((filename.trim().startsWith("filename"))) {
-//				String[] name = filename.split("=");
-//				String exactFileName = name[1].trim().replaceAll("\"", "");
-//				return exactFileName;
-//			}
-//		}
-//		return "unknown";
-//	}
-	
 	@Override
 	@POST
 	@Path("/uploadfile")
@@ -301,11 +289,20 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 		try {
 			InputStream stream = handler.getInputStream();
 			MultivaluedMap<String,String> map = attachment.getHeaders();
-			System.out.println("filename: " + FileUtils.getFileName(map));
-			OutputStream out = new FileOutputStream(new File("/tmp/" + FileUtils.getFileName(map)));
+			String upload_path = FileUtils.getProperties("upload_path");
+			String filename = FileUtils.getFileName(map);
+			System.out.println("filename: " + upload_path + filename);
+			OutputStream out = new FileOutputStream(new File(upload_path + filename));
 			
-			ufn.setFileNameOnServer(FileUtils.getFileName(map));
+			ufn.setFilePathOnServer(upload_path);
+			ufn.setFileNameOnServer(filename);
+			ufn.setFileType(FileUtils.getFileExtName(filename));
 			
+			Integer s = 0;
+			s = stream.available();
+			System.out.println(s);
+			ufn.setFileSize(s);
+
 			Integer read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = stream.read(bytes)) != -1){
