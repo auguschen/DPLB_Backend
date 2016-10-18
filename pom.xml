@@ -101,7 +101,6 @@
 			<properties>
 				<env>local</env>
 				<upload_path>/tmp/</upload_path>
-				<Access-Control-Allow-Origin>*</Access-Control-Allow-Origin>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -112,7 +111,6 @@
       <properties>
         <env>iot</env>
         <upload_path>/tmp/</upload_path>
-        <Access-Control-Allow-Origin></Access-Control-Allow-Origin>
       </properties>
     </profile>
     <profile>
@@ -120,7 +118,6 @@
       <properties>
         <env>dockerhomeserver</env>
         <upload_path>/tmp/</upload_path>
-        <Access-Control-Allow-Origin></Access-Control-Allow-Origin>
       </properties>
     </profile>
 	</profiles>

@@ -42,7 +42,6 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 
 	private static Logger logger = Logger.getLogger(DPLBServicesRestWebServiceImpl.class);
 	private static String Upload_Path = FileUtils.getProperties("upload_path");
-	private static String Access_Control_Allow_Origin = FileUtils.getProperties("Access-Control-Allow-Origin");
 
 	@Autowired
 	private AircraftService aircraftservice;
@@ -286,25 +285,16 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Consumes({MediaType.MULTIPART_FORM_DATA})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response uploadOneFile(Attachment attachment) {
-		UploadFileEntity ufn = new UploadFileEntity();
+		UploadFileEntity resufn = new UploadFileEntity();	
+		System.out.println("");
 		
 		DataHandler handler = attachment.getDataHandler();
 		try {
 			InputStream stream = handler.getInputStream();
 			MultivaluedMap<String,String> map = attachment.getHeaders();
 			String filename = FileUtils.getFileName(map);
-			System.out.println("filename: " + Upload_Path + filename);
 			OutputStream out = new FileOutputStream(new File(Upload_Path + filename));
-			
-			ufn.setFilePathOnServer(Upload_Path);
-			ufn.setFileNameOnServer(filename);
-			ufn.setFileType(FileUtils.getFileExtName(filename));
-			
-			Integer s = 0;
-			s = stream.available();
-			System.out.println(s);
-			ufn.setFileSize(s);
-
+			UploadFileEntity ufn = new UploadFileEntity(Upload_Path, filename, stream.available(), FileUtils.getFileExtName(filename));
 			Integer read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = stream.read(bytes)) != -1){
@@ -313,15 +303,11 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			stream.close();
 			out.flush();
 			out.close();
-			
+			resufn = ufn;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (Access_Control_Allow_Origin.equals("")){
-			return Response.ok(ufn).build();
-		}else {
-			return Response.ok(ufn).header("Access-Control-Allow-Origin", Access_Control_Allow_Origin).build();
-		}
+		return Response.ok(resufn).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }
