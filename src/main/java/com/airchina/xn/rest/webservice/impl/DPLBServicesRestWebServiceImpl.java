@@ -18,6 +18,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.log4j.Logger;
@@ -282,7 +283,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/uploadfile")
 	@Consumes({MediaType.MULTIPART_FORM_DATA})
 	@Produces({MediaType.APPLICATION_JSON})
-	public UploadFileEntity uploadOneFile(Attachment attachment) {
+	public Response uploadOneFile(Attachment attachment) {
 		UploadFileEntity ufn = new UploadFileEntity();
 		
 		DataHandler handler = attachment.getDataHandler();
@@ -315,8 +316,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return ufn;
+		return Response.ok(ufn).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }
