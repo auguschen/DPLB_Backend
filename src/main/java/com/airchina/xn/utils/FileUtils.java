@@ -33,7 +33,7 @@ public final class FileUtils {
 	
 	public static String getProperties(String key){
 		Properties prop = new Properties();
-		InputStream in = FileUtils.class.getResourceAsStream("/upload.location.properties");
+		InputStream in = FileUtils.class.getResourceAsStream("/params.properties");
 		try {
 			prop.load(in);
 			String value = prop.getProperty(key).trim();

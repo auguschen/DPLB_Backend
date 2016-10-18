@@ -41,6 +41,8 @@ import com.airchina.xn.service.ParameterService;
 public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebService {
 
 	private static Logger logger = Logger.getLogger(DPLBServicesRestWebServiceImpl.class);
+	private static String Upload_Path = FileUtils.getProperties("upload_path");
+	private static String Access_Control_Allow_Origin = FileUtils.getProperties("Access-Control-Allow-Origin");
 
 	@Autowired
 	private AircraftService aircraftservice;
@@ -290,12 +292,11 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 		try {
 			InputStream stream = handler.getInputStream();
 			MultivaluedMap<String,String> map = attachment.getHeaders();
-			String upload_path = FileUtils.getProperties("upload_path");
 			String filename = FileUtils.getFileName(map);
-			System.out.println("filename: " + upload_path + filename);
-			OutputStream out = new FileOutputStream(new File(upload_path + filename));
+			System.out.println("filename: " + Upload_Path + filename);
+			OutputStream out = new FileOutputStream(new File(Upload_Path + filename));
 			
-			ufn.setFilePathOnServer(upload_path);
+			ufn.setFilePathOnServer(Upload_Path);
 			ufn.setFileNameOnServer(filename);
 			ufn.setFileType(FileUtils.getFileExtName(filename));
 			
@@ -316,7 +317,11 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Response.ok(ufn).header("Access-Control-Allow-Origin", "*").build();
+		if (Access_Control_Allow_Origin.equals("")){
+			return Response.ok(ufn).build();
+		}else {
+			return Response.ok(ufn).header("Access-Control-Allow-Origin", Access_Control_Allow_Origin).build();
+		}
 	}
 
 }
