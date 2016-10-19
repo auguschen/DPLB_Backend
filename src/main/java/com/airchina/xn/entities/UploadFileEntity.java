@@ -48,7 +48,8 @@ public class UploadFileEntity implements Serializable {
 		return serialVersionUID;
 	}
 	
-	public UploadFileEntity(String filePathOnServer, String fileNameOnServer, Integer fileSize,  String fileType){
+	public UploadFileEntity(String originalPathFileName, String filePathOnServer, String fileNameOnServer, Integer fileSize,  String fileType){
+		this.originalPathFileName = originalPathFileName;
 		this.filePathOnServer = filePathOnServer;
 		this.fileNameOnServer = fileNameOnServer;
 		this.fileSize = fileSize;

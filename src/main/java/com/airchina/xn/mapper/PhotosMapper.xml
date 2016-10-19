@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.PhotosMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Photos">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Pilot_ID" jdbcType="INTEGER" property="pilotId" />
+    <result column="Photo_Path" jdbcType="VARCHAR" property="photoPath" />
+    <result column="Photo_Filename" jdbcType="VARCHAR" property="photoFilename" />
+    <result column="Photo_Ext" jdbcType="VARCHAR" property="photoExt" />
+    <result column="Photo_Size" jdbcType="INTEGER" property="photoSize" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Photos
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Photos">
+    insert into Photos (id, Pilot_ID, Photo_Path, 
+      Photo_Filename, Photo_Ext, Photo_Size, 
+      Create_Time)
+    values (#{id,jdbcType=INTEGER}, #{pilotId,jdbcType=INTEGER}, #{photoPath,jdbcType=VARCHAR}, 
+      #{photoFilename,jdbcType=VARCHAR}, #{photoExt,jdbcType=VARCHAR}, #{photoSize,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Photos">
+    update Photos
+    set Pilot_ID = #{pilotId,jdbcType=INTEGER},
+      Photo_Path = #{photoPath,jdbcType=VARCHAR},
+      Photo_Filename = #{photoFilename,jdbcType=VARCHAR},
+      Photo_Ext = #{photoExt,jdbcType=VARCHAR},
+      Photo_Size = #{photoSize,jdbcType=INTEGER},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Create_Time
+    from Photos
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Create_Time
+    from Photos
+  </select>
+</mapper>

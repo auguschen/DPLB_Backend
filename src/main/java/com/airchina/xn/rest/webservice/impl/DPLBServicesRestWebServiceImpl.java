@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.activation.DataHandler;
 import javax.ws.rs.Consumes;
@@ -286,15 +287,14 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response uploadOneFile(Attachment attachment) {
 		UploadFileEntity resufn = new UploadFileEntity();	
-		System.out.println("");
-		
 		DataHandler handler = attachment.getDataHandler();
 		try {
 			InputStream stream = handler.getInputStream();
 			MultivaluedMap<String,String> map = attachment.getHeaders();
 			String filename = FileUtils.getFileName(map);
-			OutputStream out = new FileOutputStream(new File(Upload_Path + filename));
-			UploadFileEntity ufn = new UploadFileEntity(Upload_Path, filename, stream.available(), FileUtils.getFileExtName(filename));
+			String filename_uuid = UUID.randomUUID().toString();
+			OutputStream out = new FileOutputStream(new File(Upload_Path + filename_uuid));
+			UploadFileEntity ufn = new UploadFileEntity(filename, Upload_Path, filename_uuid, stream.available(), FileUtils.getFileExtName(filename));
 			Integer read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = stream.read(bytes)) != -1){
@@ -308,6 +308,21 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			e.printStackTrace();
 		}
 		return Response.ok(resufn).header("Access-Control-Allow-Origin", "*").build();
+	}
+
+	@Override
+	@DELETE
+	@Path("/delfile")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})	
+	public Response deleteUploadedFile(UploadFileEntity ufn) {
+		File f = new File(ufn.getFilePathOnServer()+ufn.getFileNameOnServer());
+		if (f.exists()){
+			if (f.delete()){
+				ufn.setFileSize(-1);
+			}
+		}
+		return Response.ok(ufn).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }

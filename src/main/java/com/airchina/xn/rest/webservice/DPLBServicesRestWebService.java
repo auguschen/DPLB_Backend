@@ -6,6 +6,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 
+import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Aircraft;
 import com.airchina.xn.model.Logs;
 import com.airchina.xn.model.Parameters;
@@ -55,4 +56,6 @@ public interface DPLBServicesRestWebService {
 	
 //	上传文件
 	public Response uploadOneFile(Attachment attachment);
+//	删除上传文件
+	public Response deleteUploadedFile(UploadFileEntity ufn);
 }
