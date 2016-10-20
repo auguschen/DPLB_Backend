@@ -43,8 +43,12 @@ public class AircraftServiceImpl implements AircraftService {
 
 	@Override
 	public Aircraft newAircraft(Aircraft ac) {
-		Integer res = aircraftmapper.insertWithoutID(ac);
-		return res>0?ac:new Aircraft();
+		try {
+			Integer res = aircraftmapper.insertWithoutID(ac);
+			return res>0?ac:new Aircraft();
+		} catch (Exception e) {
+			return new Aircraft();
+		}
 	}
 
 	@Override

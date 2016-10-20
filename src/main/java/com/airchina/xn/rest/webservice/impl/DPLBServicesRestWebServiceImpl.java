@@ -28,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import com.airchina.xn.utils.FileUtils;
 import com.airchina.xn.common.PageParam;
+import com.airchina.xn.entities.Messages;
+import com.airchina.xn.entities.UploadFIleResp;
 import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Aircraft;
 import com.airchina.xn.model.Logs;
@@ -82,48 +84,48 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@GET
 	@Path("/ac/get/{regno}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Aircraft getAircraftByRegNo(@PathParam("regno") String regno) {
+	public Response getAircraftByRegNo(@PathParam("regno") String regno) {
 		Aircraft ac = aircraftservice.getAircraftByRegNo(regno);
-		return ac != null ? ac : new Aircraft();
+		return Response.ok( ac != null ? ac : new Aircraft()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/ac/get/{Type_Catalog}&{Type_Of_Aircraft}&{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Aircraft> getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
+	public Response getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
 			@PathParam("Type_Of_Aircraft") String typeofaircraft, @PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
 		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeofaircraft, new PageParam(pageStart, countPerPage, currentPage));
-		return acList != null ? acList : new ArrayList<Aircraft>();
+		return Response.ok(acList != null ? acList : new ArrayList<Aircraft>()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/ac/get/{Type_Catalog}&{Type_Of_Aircraft}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Aircraft> getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
+	public Response getAircraftByType(@PathParam("Type_Catalog") String typecatalog,
 			@PathParam("Type_Of_Aircraft") String typeofaircraft) {
 		List<Aircraft> acList = aircraftservice.getAircraftByType(typecatalog, typeofaircraft);
-		return acList != null ? acList : new ArrayList<Aircraft>();
+		return Response.ok(acList != null ? acList : new ArrayList<Aircraft>()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/ac/get")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Aircraft> getAllAircraft() {
+	public Response getAllAircraft() {
 		logger.info("aircraft get");
-		return aircraftservice.getAllAircraft();
+		return Response.ok(aircraftservice.getAllAircraft()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/ac/get/{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Aircraft> getAllAircraft(@PathParam("pageStart") Integer pageStart,
+	public Response getAllAircraft(@PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		return aircraftservice.getAllAircraft(new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(aircraftservice.getAllAircraft(new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	@Override
@@ -131,8 +133,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/ac/new")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Aircraft newAircraft(Aircraft ac) {
-		return aircraftservice.newAircraft(ac);
+	public Response newAircraft(Aircraft ac) {
+		return Response.ok(aircraftservice.newAircraft(ac)).build();
 	}
 
 	@Override
@@ -140,8 +142,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/ac/upd")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Aircraft updateAircraft(Aircraft ac) {
-		return aircraftservice.updateAircraft(ac);
+	public Response updateAircraft(Aircraft ac) {
+		return Response.ok(aircraftservice.updateAircraft(ac)).build();
 	}
 
 	@Override
@@ -149,8 +151,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/ac/del")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Boolean deleteAircraft(Aircraft ac) {
-		return aircraftservice.deleteAircraft(ac);
+	public Response deleteAircraft(Aircraft ac) {
+		return Response.ok(aircraftservice.deleteAircraft(ac)).build();
 	}
 
 //	日志
@@ -159,45 +161,45 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/logs/new")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Boolean newLog(Logs l) {
-		return logservice.newLog(l);
+	public Response newLog(Logs l) {
+		return Response.ok(logservice.newLog(l)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/logs/get")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Logs> getAllLogs() {
-		return logservice.getAllLogs();
+	public Response getAllLogs() {
+		return Response.ok(logservice.getAllLogs()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/logs/get/{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Logs> getAllLogs(@PathParam("pageStart") Integer pageStart,
+	public Response getAllLogs(@PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		return logservice.getAllLogs(new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(logservice.getAllLogs(new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	@Override
 	@GET
 	@Path("/logs/get/{objectType}&{objectId}&{operation}&{operatorId}&{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Logs> getLogs(@PathParam("objectType") String objectType, @PathParam("objectId") Integer objectId,
+	public Response getLogs(@PathParam("objectType") String objectType, @PathParam("objectId") Integer objectId,
 			@PathParam("operation") String operation, @PathParam("operatorId") Integer operatorId,
 			@PathParam("pageStart") Integer pageStart, @PathParam("countPerPage") Integer countPerPage,
 			@PathParam("currentPage") Integer currentPage) {
-		return logservice.getLogs(objectType, objectId, operation, operatorId, new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(logservice.getLogs(objectType, objectId, operation, operatorId, new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	@Override
 	@GET
 	@Path("/logs/get/{objectType}&{objectId}&{operation}&{operatorId}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Logs> getLogs(@PathParam("objectType") String objectType, @PathParam("objectId") Integer objectId,
+	public Response getLogs(@PathParam("objectType") String objectType, @PathParam("objectId") Integer objectId,
 			@PathParam("operation") String operation, @PathParam("operatorId") Integer operatorId) {
-		return logservice.getLogs(objectType, objectId, operation, operatorId);
+		return Response.ok(logservice.getLogs(objectType, objectId, operation, operatorId)).build();
 	}
 
 //	系统参数
@@ -206,8 +208,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/param/new")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Parameters newParameter(Parameters p) {
-		return parameterservice.newParameter(p);
+	public Response newParameter(Parameters p) {
+		return Response.ok(parameterservice.newParameter(p)).build();
 	}
 
 	@Override
@@ -215,8 +217,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/param/upd")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Parameters updateParameter(Parameters p) {
-		return parameterservice.updateParameter(p);
+	public Response updateParameter(Parameters p) {
+		return Response.ok(parameterservice.updateParameter(p)).build();
 	}
 
 	@Override
@@ -224,59 +226,59 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Path("/param/del")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Boolean deleteParameter(Parameters p) {
-		return parameterservice.deleteParameter(p);
+	public Response deleteParameter(Parameters p) {
+		return Response.ok(parameterservice.deleteParameter(p)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParameters() {
-		return parameterservice.getAllParameters();
+	public Response getParameters() {
+		return Response.ok(parameterservice.getAllParameters()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get/{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParameters(@PathParam("pageStart") Integer pageStart,
+	public Response getParameters(@PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		return parameterservice.getAllParameters(new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(parameterservice.getAllParameters(new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get/t/{parametertype}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParametersByType(@PathParam("parametertype") String parameterType) {
-		return parameterservice.getParametersByType(parameterType);
+	public Response getParametersByType(@PathParam("parametertype") String parameterType) {
+		return Response.ok(parameterservice.getParametersByType(parameterType)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get/t/{parametertype}&{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParametersByType(@PathParam("parametertype") String parameterType, @PathParam("pageStart") Integer pageStart,
+	public Response getParametersByType(@PathParam("parametertype") String parameterType, @PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		return parameterservice.getParametersByType(parameterType, new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(parameterservice.getParametersByType(parameterType, new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get/n/{parametername}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParametersByName(@PathParam("parametername") String parameterName) {
-		return parameterservice.getParametersByName(parameterName);
+	public Response getParametersByName(@PathParam("parametername") String parameterName) {
+		return Response.ok(parameterservice.getParametersByName(parameterName)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/param/get/n/{parametername}&{pageStart}&{countPerPage}&{currentPage}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Parameters> getParametersByName(@PathParam("parametername") String parameterName, @PathParam("pageStart") Integer pageStart,
+	public Response getParametersByName(@PathParam("parametername") String parameterName, @PathParam("pageStart") Integer pageStart,
 			@PathParam("countPerPage") Integer countPerPage, @PathParam("currentPage") Integer currentPage) {
-		return parameterservice.getParametersByName(parameterName, new PageParam(pageStart, countPerPage, currentPage));
+		return Response.ok(parameterservice.getParametersByName(parameterName, new PageParam(pageStart, countPerPage, currentPage))).build();
 	}
 
 	
@@ -286,7 +288,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Consumes({MediaType.MULTIPART_FORM_DATA})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response uploadOneFile(Attachment attachment) {
-		UploadFileEntity resufn = new UploadFileEntity();	
+		UploadFIleResp ufnresp = new UploadFIleResp();	
 		DataHandler handler = attachment.getDataHandler();
 		try {
 			InputStream stream = handler.getInputStream();
@@ -303,11 +305,17 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			stream.close();
 			out.flush();
 			out.close();
-			resufn = ufn;
+			ufnresp.setUfn(ufn);
+			ufnresp.setIsSuccessful(true);
+			ufnresp.setReturnCode(0);
 		} catch (Exception e) {
 			e.printStackTrace();
+			Messages returnMessage = new Messages();
+			returnMessage.getIsError().add(true);
+			returnMessage.getMessages().add(e.getLocalizedMessage());
+			ufnresp.setReturnMessage(returnMessage);
 		}
-		return Response.ok(resufn).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(ufnresp).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 	@Override
@@ -316,13 +324,27 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})	
 	public Response deleteUploadedFile(UploadFileEntity ufn) {
+		UploadFIleResp ufnresp = new UploadFIleResp();
 		File f = new File(ufn.getFilePathOnServer()+ufn.getFileNameOnServer());
 		if (f.exists()){
 			if (f.delete()){
 				ufn.setFileSize(-1);
+				ufnresp.setUfn(ufn);
+				ufnresp.setIsSuccessful(true);
+				ufnresp.setReturnCode(0);
+			}else{
+				Messages returnMessage = new Messages();
+				returnMessage.getIsError().add(true);
+				returnMessage.getMessages().add("can't delete.");
+				ufnresp.setReturnMessage(returnMessage);
 			}
+		}else {
+			Messages returnMessage = new Messages();
+			returnMessage.getIsError().add(true);
+			returnMessage.getMessages().add("file not exists.");
+			ufnresp.setReturnMessage(returnMessage);
 		}
-		return Response.ok(ufn).header("Access-Control-Allow-Origin", "*").build();
+		return Response.ok(ufnresp).header("Access-Control-Allow-Origin", "*").build();
 	}
 
 }

@@ -35,4 +35,10 @@ public class BaseResponse implements Serializable {
 		return serialVersionUID;
 	}
 	
+	public BaseResponse(){
+		this.isSuccessful = false;
+		this.returnMessage = new Messages();
+		this.returnCode = -1;
+	}
+	
 }

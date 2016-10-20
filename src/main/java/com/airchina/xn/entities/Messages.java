@@ -1,6 +1,7 @@
 package com.airchina.xn.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Messages implements Serializable {
@@ -14,7 +15,7 @@ public class Messages implements Serializable {
 	private List<String> messages;
 
 	public List<Boolean> getIsError() {
-		return isError;
+		return null==isError?new ArrayList<Boolean>():isError;
 	}
 
 	public void setIsError(List<Boolean> isError) {
@@ -22,10 +23,15 @@ public class Messages implements Serializable {
 	}
 
 	public List<String> getMessages() {
-		return messages;
+		return null==messages?new ArrayList<String>():messages;
 	}
 
 	public void setMessages(List<String> messages) {
 		this.messages = messages;
+	}
+	
+	public Messages(){
+		this.isError = new ArrayList<Boolean>();
+		this.messages = new ArrayList<String>();
 	}
 }
