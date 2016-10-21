@@ -11,19 +11,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.airchina.xn.entities.FlightCheckResp;
-import com.airchina.xn.entities.FlightTrainingResp;
-import com.airchina.xn.entities.LicensesRatingResp;
-import com.airchina.xn.entities.RoutineFlightResp;
-import com.airchina.xn.entities.SimulatorTrainingResp;
-import com.airchina.xn.entities.SummaryoflogbooksResp;
+import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Flightcheck;
 import com.airchina.xn.model.Flighttraining;
 import com.airchina.xn.model.Licensesratingsrecord;
+import com.airchina.xn.model.Photos;
 import com.airchina.xn.model.Pilot;
 import com.airchina.xn.model.Routineflight;
 import com.airchina.xn.model.Simulatortraining;
@@ -124,40 +121,40 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/p/get/n={name}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Pilot> pilotsbyname(@PathParam("name") String name) {
-		return pilotservice.getPilotsByName(name);
+	public Response pilotsbyname(@PathParam("name") String name) {
+		return Response.ok(pilotservice.getPilotsByName(name)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/p/get")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Pilot> pilots() {
-		return pilotservice.getPilots();
+	public Response pilots() {
+		return Response.ok(pilotservice.getPilots()).build();
 	}
 
 	@Override
 	@GET
 	@Path("/p/get/i={id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Pilot pilotbyid(@PathParam("id") Integer id) {
-		return pilotservice.getPilotById(id);
+	public Response pilotbyid(@PathParam("id") Integer id) {
+		return Response.ok(pilotservice.getPilotById(id)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/p/get/s={staffNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Pilot pilotbystaffnumber(@PathParam("staffNumber") String staffNumber) {
-		return pilotservice.getPilotsByStaffNumber(staffNumber);
+	public Response pilotbystaffnumber(@PathParam("staffNumber") String staffNumber) {
+		return Response.ok(pilotservice.getPilotsByStaffNumber(staffNumber)).build();
 	}
 
 	@Override
 	@GET
 	@Path("/p/get/l={licenseNo}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Pilot> pilotsbylicenseno(@PathParam("licenseNo") String licenseNo) {
-		return pilotservice.getPilotsByLicenseNo(licenseNo);
+	public Response pilotsbylicenseno(@PathParam("licenseNo") String licenseNo) {
+		return Response.ok(pilotservice.getPilotsByLicenseNo(licenseNo)).build();
 	}
 
 	@Override
@@ -165,8 +162,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/new")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Pilot newpilot(Pilot p) {
-		return pilotservice.newPilot(p);
+	public Response newpilot(Pilot p) {
+		return Response.ok(pilotservice.newPilot(p)).build();
 	}
 
 	@Override
@@ -174,8 +171,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/upd")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Pilot updatepilot(Pilot p) {
-		return pilotservice.updatePilot(p);
+	public Response updatepilot(Pilot p) {
+		return Response.ok(pilotservice.updatePilot(p)).build();
 	}
 
 	@Override
@@ -183,8 +180,25 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/del")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Boolean deletepilot(Pilot p) {
-		return pilotservice.deletePilot(p);
+	public Response deletepilot(Pilot p) {
+		return Response.ok(pilotservice.deletePilot(p)).build();
+	}
+
+//	飞行员照片
+	
+	@Override
+	public Response updatepilotPhoto(Integer pilot_id, UploadFileEntity ufn) {
+		return Response.ok(pilotservice.updatePilotPhoto(pilot_id, ufn)).build();
+	}
+
+	@Override
+	public Response deletepilotPhoto(Photos photo) {
+		return Response.ok().build();
+	}
+
+	@Override
+	public Response getPilotPhoto(Integer pilot_id) {
+		return Response.ok(pilotservice.getPilotPhoto(pilot_id)).build();
 	}
 
 	
@@ -193,8 +207,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/l/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Licensesratingsrecord> pilotlicenseratingsrecordbypilot(@PathParam("pilot_id") Integer pilot_id) {
-		return licensesratingservice.getLicensesRatingByPilotId(pilot_id);
+	public Response pilotlicenseratingsrecordbypilot(@PathParam("pilot_id") Integer pilot_id) {
+		return  Response.ok(licensesratingservice.getLicensesRatingByPilotId(pilot_id)).build();
 	}
 
 	@Override
@@ -202,8 +216,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/l/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public LicensesRatingResp newpilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
-		return licensesratingservice.newLicensesRating(pilot_id, licenseratingsrecordList);
+	public Response newpilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
+		return  Response.ok(licensesratingservice.newLicensesRating(pilot_id, licenseratingsrecordList)).build();
 	}
 
 	@Override
@@ -211,8 +225,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/l/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public LicensesRatingResp updatepilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
-		return licensesratingservice.updateLicensesRating(pilot_id, licenseratingsrecordList);
+	public Response updatepilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
+		return  Response.ok(licensesratingservice.updateLicensesRating(pilot_id, licenseratingsrecordList)).build();
 	}
 
 	@Override
@@ -220,8 +234,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/l/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public LicensesRatingResp deletepilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
-		return licensesratingservice.deleteLicensesRating(pilot_id, licenseratingsrecordList);
+	public Response deletepilotlicenseratingsrecord(@PathParam("pilot_id") Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList) {
+		return Response.ok(licensesratingservice.deleteLicensesRating(pilot_id, licenseratingsrecordList)).build();
 	}
 
 //	飞行累积信息
@@ -229,8 +243,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/solb/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Summaryoflogbooks> summaryoflogbooksbypilot(@PathParam("pilot_id") Integer pilot_id) {
-		return summaryoflogbooksservice.getSummaryofLogBooksByPilotID(pilot_id);
+	public Response summaryoflogbooksbypilot(@PathParam("pilot_id") Integer pilot_id) {
+		return Response.ok(summaryoflogbooksservice.getSummaryofLogBooksByPilotID(pilot_id)).build();
 	}
 
 	@Override
@@ -238,8 +252,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/solb/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SummaryoflogbooksResp newsummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id, List<Summaryoflogbooks> summaryoflogbooksList) {
-		return summaryoflogbooksservice.newSummaryofLogBooks(pilot_id, summaryoflogbooksList);
+	public Response newsummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id, List<Summaryoflogbooks> summaryoflogbooksList) {
+		return Response.ok(summaryoflogbooksservice.newSummaryofLogBooks(pilot_id, summaryoflogbooksList)).build();
 	}
 
 	@Override
@@ -247,8 +261,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/solb/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SummaryoflogbooksResp updatesummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id, List<Summaryoflogbooks> summaryoflogbooksList) {
-		return summaryoflogbooksservice.updateSummaryofLogBooks(pilot_id, summaryoflogbooksList);
+	public Response updatesummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id, List<Summaryoflogbooks> summaryoflogbooksList) {
+		return Response.ok(summaryoflogbooksservice.updateSummaryofLogBooks(pilot_id, summaryoflogbooksList)).build();
 	}
 
 	@Override
@@ -256,9 +270,9 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/solb/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SummaryoflogbooksResp deletesummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id,
+	public Response deletesummaryoflogbooks(@PathParam("pilot_id") Integer pilot_id,
 			List<Summaryoflogbooks> summaryoflogbooksList) {
-		return summaryoflogbooksservice.deleteSummaryofLogBooks(pilot_id, summaryoflogbooksList);
+		return Response.ok(summaryoflogbooksservice.deleteSummaryofLogBooks(pilot_id, summaryoflogbooksList)).build();
 	}
 
 //	日常飞行
@@ -266,8 +280,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/r/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Routineflight> routineFlightbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
-		return routineflightservice.getRoutineFlightByPilotID(pilot_id);
+	public Response routineFlightbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
+		return Response.ok(routineflightservice.getRoutineFlightByPilotID(pilot_id)).build();
 	}
 
 	@Override
@@ -275,8 +289,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/r/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public RoutineFlightResp newRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
-		return routineflightservice.newRoutineFlight(pilot_id, routineflgihtList);
+	public Response newRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
+		return Response.ok(routineflightservice.newRoutineFlight(pilot_id, routineflgihtList)).build();
 	}
 
 	@Override
@@ -284,8 +298,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/r/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public RoutineFlightResp updateRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
-		return routineflightservice.updateRoutineFlight(pilot_id, routineflgihtList);
+	public Response updateRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
+		return Response.ok(routineflightservice.updateRoutineFlight(pilot_id, routineflgihtList)).build();
 	}
 
 	@Override
@@ -293,8 +307,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/r/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public RoutineFlightResp deleteRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
-		return routineflightservice.deleteRoutineFlight(pilot_id, routineflgihtList);
+	public Response deleteRoutineflight(@PathParam("pilot_id") Integer pilot_id, List<Routineflight> routineflgihtList) {
+		return Response.ok(routineflightservice.deleteRoutineFlight(pilot_id, routineflgihtList)).build();
 	}
 
 //	飞行训练
@@ -302,8 +316,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/t/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Flighttraining> flightTrainingbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
-		return flighttraningservice.getFlightTrainingByPilotID(pilot_id);
+	public Response flightTrainingbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
+		return Response.ok(flighttraningservice.getFlightTrainingByPilotID(pilot_id)).build();
 	}
 
 	@Override
@@ -311,8 +325,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/t/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightTrainingResp newFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
-		return flighttraningservice.newFlightTraining(pilot_id, flighttrainingList);
+	public Response newFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
+		return Response.ok(flighttraningservice.newFlightTraining(pilot_id, flighttrainingList)).build();
 	}
 
 	@Override
@@ -320,8 +334,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/t/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightTrainingResp updateFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
-		return flighttraningservice.updateFlightTraining(pilot_id, flighttrainingList);
+	public Response updateFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
+		return Response.ok(flighttraningservice.updateFlightTraining(pilot_id, flighttrainingList)).build();
 	}
 
 	@Override
@@ -329,8 +343,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/t/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightTrainingResp deleteFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
-		return flighttraningservice.deleteFlightTraining(pilot_id, flighttrainingList);
+	public Response deleteFlightraining(@PathParam("pilot_id") Integer pilot_id, List<Flighttraining> flighttrainingList) {
+		return Response.ok(flighttraningservice.deleteFlightTraining(pilot_id, flighttrainingList)).build();
 	}
 
 //	飞行检查
@@ -338,8 +352,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/c/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Flightcheck> flightCheckbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
-		return flightcheckservice.getFlightCheckByPilotID(pilot_id);
+	public Response flightCheckbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
+		return Response.ok(flightcheckservice.getFlightCheckByPilotID(pilot_id)).build();
 	}
 
 	@Override
@@ -347,8 +361,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/c/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightCheckResp newFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
-		return flightcheckservice.newFlightCheck(pilot_id, flightcheckList);
+	public Response newFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
+		return Response.ok(flightcheckservice.newFlightCheck(pilot_id, flightcheckList)).build();
 	}
 
 	@Override
@@ -356,8 +370,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/c/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightCheckResp updateFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
-		return flightcheckservice.updateFlightCheck(pilot_id, flightcheckList);
+	public Response updateFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
+		return Response.ok(flightcheckservice.updateFlightCheck(pilot_id, flightcheckList)).build();
 	}
 
 	@Override
@@ -365,8 +379,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/c/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public FlightCheckResp deleteFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
-		return flightcheckservice.deleteFlightCheck(pilot_id, flightcheckList);
+	public Response deleteFlightcheck(@PathParam("pilot_id") Integer pilot_id, List<Flightcheck> flightcheckList) {
+		return Response.ok(flightcheckservice.deleteFlightCheck(pilot_id, flightcheckList)).build();
 	}
 
 //	模拟机训练
@@ -374,8 +388,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/s/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Simulatortraining> simulatorTrainingbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
-		return simulatortrainingservice.getSimulatorTrainingByPilotID(pilot_id);
+	public Response simulatorTrainingbyPilotid(@PathParam("pilot_id") Integer pilot_id) {
+		return Response.ok(simulatortrainingservice.getSimulatorTrainingByPilotID(pilot_id)).build();
 	}
 
 	@Override
@@ -383,8 +397,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/s/new/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SimulatorTrainingResp newSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
-		return simulatortrainingservice.newSimulatorTraining(pilot_id, simulatortrainingList);
+	public Response newSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
+		return Response.ok(simulatortrainingservice.newSimulatorTraining(pilot_id, simulatortrainingList)).build();
 	}
 
 	@Override
@@ -392,8 +406,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/s/upd/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SimulatorTrainingResp updateSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
-		return simulatortrainingservice.updateSimulatorTraining(pilot_id, simulatortrainingList);
+	public Response updateSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
+		return Response.ok(simulatortrainingservice.updateSimulatorTraining(pilot_id, simulatortrainingList)).build();
 	}
 
 	@Override
@@ -401,8 +415,8 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/s/del/{pilot_id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SimulatorTrainingResp deleteSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
-		return simulatortrainingservice.deleteSimulatorTraining(pilot_id, simulatortrainingList);
+	public Response deleteSimulatortraining(@PathParam("pilot_id") Integer pilot_id, List<Simulatortraining> simulatortrainingList) {
+		return Response.ok(simulatortrainingservice.deleteSimulatorTraining(pilot_id, simulatortrainingList)).build();
 	}
 
 }

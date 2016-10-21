@@ -8,6 +8,7 @@
     <result column="Photo_Filename" jdbcType="VARCHAR" property="photoFilename" />
     <result column="Photo_Ext" jdbcType="VARCHAR" property="photoExt" />
     <result column="Photo_Size" jdbcType="INTEGER" property="photoSize" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
     <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -17,10 +18,16 @@
   <insert id="insert" parameterType="com.airchina.xn.model.Photos">
     insert into Photos (id, Pilot_ID, Photo_Path, 
       Photo_Filename, Photo_Ext, Photo_Size, 
-      Create_Time)
+      Deleted, Create_Time)
     values (#{id,jdbcType=INTEGER}, #{pilotId,jdbcType=INTEGER}, #{photoPath,jdbcType=VARCHAR}, 
       #{photoFilename,jdbcType=VARCHAR}, #{photoExt,jdbcType=VARCHAR}, #{photoSize,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{deleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertWithoutID" parameterType="com.airchina.xn.model.Photos" useGeneratedKeys="true" keyProperty="id">
+    insert into Photos (Pilot_ID, Photo_Path, 
+      Photo_Filename, Photo_Ext, Photo_SizeDeleted)
+    values (#{pilotId,jdbcType=INTEGER}, #{photoPath,jdbcType=VARCHAR}, 
+      #{photoFilename,jdbcType=VARCHAR}, #{photoExt,jdbcType=VARCHAR}, #{photoSize,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Photos">
     update Photos
@@ -29,16 +36,28 @@
       Photo_Filename = #{photoFilename,jdbcType=VARCHAR},
       Photo_Ext = #{photoExt,jdbcType=VARCHAR},
       Photo_Size = #{photoSize,jdbcType=INTEGER},
+      Deleted = #{deleted,jdbcType=BIT},
       Create_Time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Create_Time
+    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Deleted, 
+    Create_Time
     from Photos
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Create_Time
+    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Deleted, 
+    Create_Time
     from Photos
   </select>
+
+  <select id="selectByPilotID" resultMap="BaseResultMap">
+    select id, Pilot_ID, Photo_Path, Photo_Filename, Photo_Ext, Photo_Size, Deleted, 
+    Create_Time
+    from Photos
+    where Deleted=false
+    and Pilot_ID = #{Pilot_ID,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
