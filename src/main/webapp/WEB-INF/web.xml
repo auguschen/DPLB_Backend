@@ -17,6 +17,14 @@
     <param-name>log4jRefreshInterval</param-name>
     <param-value>60000</param-value>
   </context-param>
+  
+  <!-- 配置webAppRootKey﻿​还可以防止tomcat下部署多个项目时造成冲突 -->
+
+	<context-param>  
+	  <param-name>webAppRootKey</param-name>   
+	  <param-value>dplb.webapp</param-value>  
+	</context-param>  
+
   <filter>
     <filter-name>DruidWebStatFilter</filter-name>
     <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
@@ -51,6 +59,13 @@
   <listener>
     <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
   </listener>
+  
+<!--   如果在web.xml中已经配置了 org.springframework.web.util.Log4jConfigListener这个监听器，则不需要配置WebAppRootListener了。因为Log4jConfigListener已经包含了WebAppRootListener的功能 -->
+<!-- 
+  <listener>   
+    <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>   
+  </listener>
+ -->
   <servlet>
     <servlet-name>DruidStatView</servlet-name>
     <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>

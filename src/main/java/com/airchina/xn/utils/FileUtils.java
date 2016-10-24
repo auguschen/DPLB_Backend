@@ -1,5 +1,6 @@
 package com.airchina.xn.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -42,6 +43,23 @@ public final class FileUtils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String getUploadPath(String uploadPath){
+		File f = new File(uploadPath);
+		if (f.exists()){
+			if (f.isDirectory()){
+				return uploadPath;
+			}else {
+				return "";
+			}
+		}else{
+			if (f.mkdir()){
+				return uploadPath;
+			}else{
+				return "";
+			}
+		}
 	}
 
 }

@@ -288,6 +288,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Consumes({MediaType.MULTIPART_FORM_DATA})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response uploadOneFile(Attachment attachment) {
+		String filePathOnServer = FileUtils.getUploadPath(System.getProperty("dplb.webapp") + Upload_Path);
 		UploadFIleResp ufnresp = new UploadFIleResp();	
 		DataHandler handler = attachment.getDataHandler();
 		try {
@@ -295,8 +296,8 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			MultivaluedMap<String,String> map = attachment.getHeaders();
 			String filename = FileUtils.getFileName(map);
 			String filename_uuid = UUID.randomUUID().toString();
-			OutputStream out = new FileOutputStream(new File(Upload_Path + filename_uuid));
-			UploadFileEntity ufn = new UploadFileEntity(filename, Upload_Path, filename_uuid, stream.available(), FileUtils.getFileExtName(filename));
+			OutputStream out = new FileOutputStream(new File(filePathOnServer + filename_uuid));
+			UploadFileEntity ufn = new UploadFileEntity(filename, filePathOnServer, filename_uuid, stream.available(), FileUtils.getFileExtName(filename));
 			Integer read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = stream.read(bytes)) != -1){
@@ -312,7 +313,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			e.printStackTrace();
 			Messages returnMessage = new Messages();
 			returnMessage.getIsError().add(true);
-			returnMessage.getMessages().add(e.getLocalizedMessage());
+			returnMessage.getMessages().add(e.getMessage());
 			ufnresp.setReturnMessage(returnMessage);
 		}
 		return Response.ok(ufnresp).header("Access-Control-Allow-Origin", "*").build();
