@@ -96,15 +96,22 @@
 		</dependency>
 	</dependencies>
 	<profiles>
+	   <profile>
+      <id>dev</id>
+      <properties>
+        <env>dev</env>
+        <tempfile_path>/tmp/</tempfile_path>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
 		<profile>
 			<id>local</id>
 			<properties>
 				<env>local</env>
 				<tempfile_path>/tmp/</tempfile_path>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
     <profile>
       <id>iot</id>
