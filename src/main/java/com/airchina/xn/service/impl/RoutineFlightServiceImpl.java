@@ -27,8 +27,15 @@ public class RoutineFlightServiceImpl implements RoutineFlightService {
 	}
 
 	@Override
-	public List<Routineflight> getRoutineFlightByPilotID(Integer pilot_id) {
-		return routineflightmapper.selectByPilotID(pilot_id);
+	public RoutineFlightResp getRoutineFlightByPilotID(Integer pilot_id) {
+		RoutineFlightResp res = new RoutineFlightResp();
+		List<Routineflight> routineflightlist = routineflightmapper.selectByPilotID(pilot_id);
+		if (routineflightlist!=null && !routineflightlist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setRoutineflights(routineflightlist);
+		}
+		return res;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import com.airchina.xn.model.Summaryoflogbooks;
 
 public interface SummaryOfLogBooksService {
 
-	List<Summaryoflogbooks> getSummaryofLogBooksByPilotID(Integer pilot_id);
+	SummaryoflogbooksResp getSummaryofLogBooksByPilotID(Integer pilot_id);
 	
 	SummaryoflogbooksResp newSummaryofLogBooks(Integer pilot_id, List<Summaryoflogbooks> summaryoflogbooksList);
 	

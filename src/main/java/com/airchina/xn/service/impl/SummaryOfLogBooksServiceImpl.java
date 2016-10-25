@@ -28,8 +28,15 @@ public class SummaryOfLogBooksServiceImpl implements SummaryOfLogBooksService {
 	}
 
 	@Override
-	public List<Summaryoflogbooks> getSummaryofLogBooksByPilotID(Integer pilot_id) {
-		return summaryoflogbooksmapper.selectByPilotID(pilot_id);
+	public SummaryoflogbooksResp getSummaryofLogBooksByPilotID(Integer pilot_id) {
+		SummaryoflogbooksResp res = new SummaryoflogbooksResp();
+		List<Summaryoflogbooks> sumlist = summaryoflogbooksmapper.selectByPilotID(pilot_id);
+		if (sumlist!=null && !sumlist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setSummaryoflogbooks(sumlist);
+		}
+		return res;
 	}
 
 	@Override

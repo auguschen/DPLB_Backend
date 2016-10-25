@@ -1,5 +1,6 @@
 package com.airchina.xn.rest.webservice.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +17,10 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.airchina.xn.entities.PilotsResponse;
+import com.airchina.xn.entities.PhotosResponse;
+import com.airchina.xn.entities.PilotResponse;
+import com.airchina.xn.entities.Pilots;
 import com.airchina.xn.entities.UploadFileEntity;
 import com.airchina.xn.model.Flightcheck;
 import com.airchina.xn.model.Flighttraining;
@@ -122,7 +127,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/get/n={name}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response pilotsbyname(@PathParam("name") String name) {
-		return Response.ok(pilotservice.getPilotsByName(name)).build();
+		List<Pilot> pilots = pilotservice.getPilotsByName(name);
+		PilotsResponse pilotRes = new PilotsResponse();
+		if (pilots!=null && !pilots.isEmpty()){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilots(new Pilots(pilots));
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -130,7 +142,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/get")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response pilots() {
-		return Response.ok(pilotservice.getPilots()).build();
+		List<Pilot> pilots = pilotservice.getPilots();
+		PilotsResponse pilotRes = new PilotsResponse();
+		if (pilots!=null && !pilots.isEmpty()){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilots(new Pilots(pilots));
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -138,7 +157,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/get/i={id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response pilotbyid(@PathParam("id") Integer id) {
-		return Response.ok(pilotservice.getPilotById(id)).build();
+		Pilot pilot = pilotservice.getPilotById(id);
+		PilotResponse pilotRes = new PilotResponse();
+		if (pilot!=null){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilot(pilot);
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -146,7 +172,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/get/s={staffNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response pilotbystaffnumber(@PathParam("staffNumber") String staffNumber) {
-		return Response.ok(pilotservice.getPilotsByStaffNumber(staffNumber)).build();
+		Pilot pilot = pilotservice.getPilotsByStaffNumber(staffNumber);
+		PilotResponse pilotRes = new PilotResponse();
+		if (pilot!=null){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilot(pilot);
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -154,7 +187,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Path("/p/get/l={licenseNo}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response pilotsbylicenseno(@PathParam("licenseNo") String licenseNo) {
-		return Response.ok(pilotservice.getPilotsByLicenseNo(licenseNo)).build();
+		List<Pilot> pilots = pilotservice.getPilotsByLicenseNo(licenseNo);
+		PilotsResponse pilotRes = new PilotsResponse();
+		if (pilots!=null && !pilots.isEmpty()){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilots(new Pilots(pilots));
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -163,7 +203,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response newpilot(Pilot p) {
-		return Response.ok(pilotservice.newPilot(p)).build();
+		Pilot pilot = pilotservice.newPilot(p);
+		PilotResponse pilotRes = new PilotResponse();
+		if (pilot!=null){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilot(pilot);
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -172,7 +219,14 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response updatepilot(Pilot p) {
-		return Response.ok(pilotservice.updatePilot(p)).build();
+		Pilot pilot = pilotservice.updatePilot(p);
+		PilotResponse pilotRes = new PilotResponse();
+		if (pilot!=null){
+			pilotRes.setIsSuccessful(true);
+			pilotRes.setReturnCode(0);
+			pilotRes.setPilot(pilot);
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 	@Override
@@ -181,24 +235,50 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response deletepilot(Pilot p) {
-		return Response.ok(pilotservice.deletePilot(p)).build();
+		Boolean status = pilotservice.deletePilot(p);
+		PilotResponse pilotRes = new PilotResponse();
+		if (status==true){
+			pilotRes.setIsSuccessful(status);
+			pilotRes.setReturnCode(0);
+		}
+		return Response.ok(pilotRes).build();
 	}
 
 //	飞行员照片
 	
 	@Override
 	public Response updatepilotPhoto(Integer pilot_id, UploadFileEntity ufn) {
-		return Response.ok(pilotservice.updatePilotPhoto(pilot_id, ufn)).build();
+		PhotosResponse photoRes = new PhotosResponse();
+		Photos photo = pilotservice.updatePilotPhoto(pilot_id, ufn);
+		if (photo!=null){
+			photoRes.setIsSuccessful(true);
+			photoRes.setReturnCode(0);
+			photoRes.setPhoto(photo);
+		}
+		return Response.ok(photoRes).build();
 	}
 
 	@Override
 	public Response deletepilotPhoto(Photos photo) {
-		return Response.ok().build();
+		Boolean status = pilotservice.deletePilotPhoto(photo);
+		PhotosResponse photoRes = new PhotosResponse();
+		if (status==true){
+			photoRes.setIsSuccessful(status);
+			photoRes.setReturnCode(0);
+		}
+		return Response.ok(photoRes).build();
 	}
 
 	@Override
 	public Response getPilotPhoto(Integer pilot_id) {
-		return Response.ok(pilotservice.getPilotPhoto(pilot_id)).build();
+		PhotosResponse photoRes = new PhotosResponse();
+		Photos photo = pilotservice.getPilotPhoto(pilot_id);
+		if (photo!=null){
+			photoRes.setIsSuccessful(true);
+			photoRes.setReturnCode(0);
+			photoRes.setPhoto(photo);
+		}
+		return Response.ok(photoRes).build();
 	}
 
 	
@@ -207,7 +287,7 @@ public class DigitalPilotLogBookRestWebServiceImpl implements DigitalPilotLogBoo
 	@GET
 	@Path("/l/get/{pilot_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response pilotlicenseratingsrecordbypilot(@PathParam("pilot_id") Integer pilot_id) {
+	public Response pilotlicenseratingsrecordbypilot(@PathParam("pilot_id") Integer pilot_id) {	
 		return  Response.ok(licensesratingservice.getLicensesRatingByPilotId(pilot_id)).build();
 	}
 

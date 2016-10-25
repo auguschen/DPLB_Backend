@@ -41,4 +41,9 @@ public class BaseResponse implements Serializable {
 		this.returnCode = -1;
 	}
 	
+	public BaseResponse(Boolean issuccessful, Messages messages, Integer returncode){
+		this.isSuccessful = issuccessful;
+		this.returnMessage = messages;
+		this.returnCode = returncode;
+	}
 }

@@ -7,7 +7,7 @@ import com.airchina.xn.model.Simulatortraining;
 
 public interface SimulatorTrainingService {
 
-	List<Simulatortraining> getSimulatorTrainingByPilotID(Integer pilot_id);
+	SimulatorTrainingResp getSimulatorTrainingByPilotID(Integer pilot_id);
 	
 	SimulatorTrainingResp newSimulatorTraining(Integer pilot_id, List<Simulatortraining> simulatortrainingList);
 	

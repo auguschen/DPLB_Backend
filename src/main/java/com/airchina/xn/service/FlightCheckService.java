@@ -7,7 +7,7 @@ import com.airchina.xn.model.Flightcheck;
 
 public interface FlightCheckService {
 
-	List<Flightcheck> getFlightCheckByPilotID(Integer pilot_id);
+	FlightCheckResp getFlightCheckByPilotID(Integer pilot_id);
 	
 	FlightCheckResp newFlightCheck(Integer pilot_id, List<Flightcheck> flightcheckList);
 	

@@ -28,8 +28,15 @@ public class FlightCheckServiceImpl implements FlightCheckService {
 	}
 
 	@Override
-	public List<Flightcheck> getFlightCheckByPilotID(Integer pilot_id) {
-		return flightcheckmapper.selectByPilotID(pilot_id);
+	public FlightCheckResp getFlightCheckByPilotID(Integer pilot_id) {
+		FlightCheckResp res = new FlightCheckResp();
+		List<Flightcheck> flightchecklist = flightcheckmapper.selectByPilotID(pilot_id);
+		if (flightchecklist!=null && !flightchecklist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setFlightchecks(flightchecklist);
+		}
+		return res;
 	}
 
 	@Override

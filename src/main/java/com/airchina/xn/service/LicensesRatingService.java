@@ -7,7 +7,7 @@ import com.airchina.xn.model.Licensesratingsrecord;
 
 public interface LicensesRatingService {
 
-	public List<Licensesratingsrecord> getLicensesRatingByPilotId(Integer pilot_id);
+	public LicensesRatingResp getLicensesRatingByPilotId(Integer pilot_id);
 	
 	public LicensesRatingResp newLicensesRating(Integer pilot_id, List<Licensesratingsrecord> licenseratingsrecordList);
 	

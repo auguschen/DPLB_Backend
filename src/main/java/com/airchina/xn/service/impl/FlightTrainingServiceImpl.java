@@ -27,8 +27,15 @@ public class FlightTrainingServiceImpl implements FlightTrainingService {
 	}
 
 	@Override
-	public List<Flighttraining> getFlightTrainingByPilotID(Integer pilot_id) {
-		return flighttrainingmapper.selectByPilotID(pilot_id);
+	public FlightTrainingResp getFlightTrainingByPilotID(Integer pilot_id) {
+		FlightTrainingResp res = new FlightTrainingResp();
+		List<Flighttraining> flighttraininglist =flighttrainingmapper.selectByPilotID(pilot_id);
+		if (flighttraininglist!=null && !flighttraininglist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setFlighttrainings(flighttraininglist);
+		}
+		return res;
 	}
 
 	@Override

@@ -63,9 +63,9 @@ public class PilotServiceImpl implements PilotService {
 	public Pilot newPilot(Pilot p) {
 		try {
 			Integer res = pilotmapper.insertWithoutID(p);
-			return res>0?p:new Pilot();
+			return res>0?p:null;
 		} catch (Exception e) {
-			return new Pilot();
+			return null;
 		}
 	}
 
@@ -73,7 +73,7 @@ public class PilotServiceImpl implements PilotService {
 	@Override
 	public Pilot updatePilot(Pilot p) {
 		Integer res = pilotmapper.updateByPrimaryKey(p);
-		return res>0?p:new Pilot();
+		return res>0?p:null;
 	}
 
 
@@ -107,9 +107,9 @@ public class PilotServiceImpl implements PilotService {
 		try {
 			Photos record = new Photos(pilot_id,ufn.getFilePathOnServer(),ufn.getFileNameOnServer(),ufn.getFileType(),ufn.getFileSize());
 			Integer res = photosmapper.insertWithoutID(record);
-			return res>0?record:new Photos();
+			return res>0?record:null;
 		} catch (Exception e) {
-			return new Photos();
+			return null;
 		}
 	}
 
@@ -123,7 +123,7 @@ public class PilotServiceImpl implements PilotService {
 		}else{
 			//有照片，更新
 			Integer res = photosmapper.updateByPrimaryKey(photo);		
-			return res>0?photo:new Photos();
+			return res>0?photo:null;
 		}
 	}
 

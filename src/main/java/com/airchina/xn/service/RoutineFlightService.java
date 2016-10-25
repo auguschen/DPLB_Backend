@@ -7,7 +7,7 @@ import com.airchina.xn.model.Routineflight;
 
 public interface RoutineFlightService {
 	
-	List<Routineflight> getRoutineFlightByPilotID(Integer pilot_id);
+	RoutineFlightResp getRoutineFlightByPilotID(Integer pilot_id);
 	
 	RoutineFlightResp newRoutineFlight(Integer pilot_id, List<Routineflight> routineflgihtList);
 	

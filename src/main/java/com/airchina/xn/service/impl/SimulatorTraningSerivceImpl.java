@@ -27,8 +27,15 @@ public class SimulatorTraningSerivceImpl implements SimulatorTrainingService {
 	}
 
 	@Override
-	public List<Simulatortraining> getSimulatorTrainingByPilotID(Integer pilot_id) {
-		return simulatortrainingmapper.selectByPilotID(pilot_id);
+	public SimulatorTrainingResp getSimulatorTrainingByPilotID(Integer pilot_id) {
+		SimulatorTrainingResp res = new SimulatorTrainingResp();
+		List<Simulatortraining> simulatortraininglist = simulatortrainingmapper.selectByPilotID(pilot_id);
+		if (simulatortraininglist!=null && !simulatortraininglist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setSimulatortrainings(simulatortraininglist);
+		}
+		return res;
 	}
 
 	@Override

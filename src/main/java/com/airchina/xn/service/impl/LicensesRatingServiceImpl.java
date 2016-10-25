@@ -27,9 +27,15 @@ public class LicensesRatingServiceImpl implements LicensesRatingService {
 	}
 
 	@Override
-	public List<Licensesratingsrecord> getLicensesRatingByPilotId(Integer pilot_id) {
-		// TODO Auto-generated method stub
-		return licensesratingsrecordmapper.selectAllByPilotID(pilot_id);
+	public LicensesRatingResp getLicensesRatingByPilotId(Integer pilot_id) {
+		LicensesRatingResp res = new LicensesRatingResp();
+		List<Licensesratingsrecord> liclist = licensesratingsrecordmapper.selectAllByPilotID(pilot_id);
+		if (liclist!=null && !liclist.isEmpty()){
+			res.setIsSuccessful(true);
+			res.setReturnCode(0);
+			res.setLicensesRatingsRecords(liclist);
+		}
+		return res;
 	}
 
 	@Override
