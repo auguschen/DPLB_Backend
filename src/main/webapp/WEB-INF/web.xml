@@ -22,7 +22,7 @@
 
 	<context-param>  
 	  <param-name>webAppRootKey</param-name>   
-	  <param-value>dplb.webapp</param-value>  
+	  <param-value>dplb.service</param-value>  
 	</context-param>  
 
   <filter>

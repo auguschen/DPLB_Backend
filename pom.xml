@@ -100,7 +100,7 @@
 			<id>local</id>
 			<properties>
 				<env>local</env>
-				<upload_path>/tmp/</upload_path>
+				<tempfile_path>/tmp/</tempfile_path>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -110,14 +110,14 @@
       <id>iot</id>
       <properties>
         <env>iot</env>
-        <upload_path>/tmp/</upload_path>
+        <tempfile_path>/tmp/</tempfile_path>
       </properties>
     </profile>
     <profile>
       <id>dockerhomeserver</id>
       <properties>
         <env>dockerhomeserver</env>
-        <upload_path>/tmp/</upload_path>
+        <tempfile_path>/tmp/</tempfile_path>
       </properties>
     </profile>
 	</profiles>

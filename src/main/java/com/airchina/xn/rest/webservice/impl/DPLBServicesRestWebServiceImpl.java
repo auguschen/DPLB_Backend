@@ -44,7 +44,7 @@ import com.airchina.xn.service.ParameterService;
 public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebService {
 
 	private static Logger logger = Logger.getLogger(DPLBServicesRestWebServiceImpl.class);
-	private static String Upload_Path = FileUtils.getProperties("upload_path");
+	private static String TempFile_Path = FileUtils.getProperties("tempfile_path");
 
 	@Autowired
 	private AircraftService aircraftservice;
@@ -288,7 +288,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 	@Consumes({MediaType.MULTIPART_FORM_DATA})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response uploadOneFile(Attachment attachment) {
-		String filePathOnServer = FileUtils.getUploadPath(System.getProperty("dplb.webapp") + Upload_Path);
+		String filePathOnServer = FileUtils.getUploadPath(System.getProperty("dplb.service") + TempFile_Path);
 		UploadFIleResp ufnresp = new UploadFIleResp();	
 		DataHandler handler = attachment.getDataHandler();
 		try {
@@ -297,7 +297,6 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			String filename = FileUtils.getFileName(map);
 			String filename_uuid = UUID.randomUUID().toString();
 			OutputStream out = new FileOutputStream(new File(filePathOnServer + filename_uuid));
-			UploadFileEntity ufn = new UploadFileEntity(filename, filePathOnServer, filename_uuid, stream.available(), FileUtils.getFileExtName(filename));
 			Integer read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = stream.read(bytes)) != -1){
@@ -306,6 +305,7 @@ public class DPLBServicesRestWebServiceImpl implements DPLBServicesRestWebServic
 			stream.close();
 			out.flush();
 			out.close();
+			UploadFileEntity ufn = new UploadFileEntity(filename, filePathOnServer, filename_uuid, stream.available(), FileUtils.getFileExtName(filename));
 			ufnresp.setUfn(ufn);
 			ufnresp.setIsSuccessful(true);
 			ufnresp.setReturnCode(0);
