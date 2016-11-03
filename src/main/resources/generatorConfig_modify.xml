@@ -9,7 +9,7 @@
       <property name="addRemarkComments" value="true" />
 		</commentGenerator>
 		<jdbcConnection
-			connectionURL="jdbc:mysql://mysql.augus.tech:3306/dplb?characterEncoding=utf8"
+			connectionURL="jdbc:mysql://172.18.1.154:3306/dplb?characterEncoding=utf8"
 			driverClass="com.mysql.jdbc.Driver" password="spring" userId="dplb" />
 		<javaModelGenerator targetPackage="com.airchina.xn.model"
 			targetProject="DPLB_Backend" />
@@ -18,7 +18,7 @@
 		<javaClientGenerator targetPackage="com.airchina.xn.dao"
 			targetProject="DPLB_Backend" type="XMLMAPPER" />
 
-    <table schema="dplb" tableName="Photos" />
+    <table schema="dplb" tableName="RoutineFlightInfo" />
 <!-- 
     <table schema="dplb" tableName="Aircraft" />
  -->

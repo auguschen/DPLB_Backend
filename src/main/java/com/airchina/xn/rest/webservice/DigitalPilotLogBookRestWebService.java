@@ -134,4 +134,25 @@ public interface DigitalPilotLogBookRestWebService {
 	public Response deleteSimulatortraining(Integer pilot_id, List<Simulatortraining> simulatortrainingList);
 	
 
+	/**
+	 * 
+	 * 航班信息
+	 * 
+	 */
+	
+//	新增航班信息
+	public Response addFlights();
+//	查询航班信息
+	public Response getFlights();
+	
+	/**
+	 * 
+	 * 日常飞行 v2
+	 * 
+	 */
+//	新增或保存日常飞行信息
+	public Response saveRoutineFlight();
+//	查询日常飞行信息
+	public Response getRoutineFlight();
+
 }

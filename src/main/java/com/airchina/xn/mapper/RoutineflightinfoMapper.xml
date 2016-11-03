@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.airchina.xn.dao.RoutineflightinfoMapper">
+  <resultMap id="BaseResultMap" type="com.airchina.xn.model.Routineflightinfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Flight_Date" jdbcType="DATE" property="flightDate" />
+    <result column="Type_Of_Aircraft" jdbcType="VARCHAR" property="typeOfAircraft" />
+    <result column="Registered_Number" jdbcType="VARCHAR" property="registeredNumber" />
+    <result column="Flight_Carrier" jdbcType="VARCHAR" property="flightCarrier" />
+    <result column="Flight_Number" jdbcType="VARCHAR" property="flightNumber" />
+    <result column="Flight_Leg_From" jdbcType="VARCHAR" property="flightLegFrom" />
+    <result column="Flight_Leg_To" jdbcType="VARCHAR" property="flightLegTo" />
+    <result column="Flight_Leg_Dep" jdbcType="TIMESTAMP" property="flightLegDep" />
+    <result column="Flight_Leg_Arr" jdbcType="TIMESTAMP" property="flightLegArr" />
+    <result column="Flight_Leg_Takeoff" jdbcType="TIMESTAMP" property="flightLegTakeoff" />
+    <result column="Flight_Leg_Landing" jdbcType="TIMESTAMP" property="flightLegLanding" />
+    <result column="Flight_Leg_Dep_Schedule" jdbcType="TIMESTAMP" property="flightLegDepSchedule" />
+    <result column="Flight_Leg_Arr_Schedule" jdbcType="TIMESTAMP" property="flightLegArrSchedule" />
+    <result column="Flight_Leg_Dep_UTC" jdbcType="TIMESTAMP" property="flightLegDepUtc" />
+    <result column="Flight_Leg_Arr_UTC" jdbcType="TIMESTAMP" property="flightLegArrUtc" />
+    <result column="Flight_Leg_Takeoff_UTC" jdbcType="TIMESTAMP" property="flightLegTakeoffUtc" />
+    <result column="Flight_Leg_Landing_UTC" jdbcType="TIMESTAMP" property="flightLegLandingUtc" />
+    <result column="Flight_Leg_Dep_Schedule_UTC" jdbcType="TIMESTAMP" property="flightLegDepScheduleUtc" />
+    <result column="Flight_Leg_Arr_Schedule_UTC" jdbcType="TIMESTAMP" property="flightLegArrScheduleUtc" />
+    <result column="Signature" jdbcType="VARCHAR" property="signature" />
+    <result column="Rec_Status" jdbcType="VARCHAR" property="recStatus" />
+    <result column="Rec_UUID" jdbcType="VARCHAR" property="recUuid" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from routineflightinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.airchina.xn.model.Routineflightinfo">
+    insert into routineflightinfo (id, Flight_Date, Type_Of_Aircraft, 
+      Registered_Number, Flight_Carrier, Flight_Number, 
+      Flight_Leg_From, Flight_Leg_To, Flight_Leg_Dep, 
+      Flight_Leg_Arr, Flight_Leg_Takeoff, Flight_Leg_Landing, 
+      Flight_Leg_Dep_Schedule, Flight_Leg_Arr_Schedule, 
+      Flight_Leg_Dep_UTC, Flight_Leg_Arr_UTC, Flight_Leg_Takeoff_UTC, 
+      Flight_Leg_Landing_UTC, Flight_Leg_Dep_Schedule_UTC, 
+      Flight_Leg_Arr_Schedule_UTC, Signature, Rec_Status, 
+      Rec_UUID, Create_Time)
+    values (#{id,jdbcType=INTEGER}, #{flightDate,jdbcType=DATE}, #{typeOfAircraft,jdbcType=VARCHAR}, 
+      #{registeredNumber,jdbcType=VARCHAR}, #{flightCarrier,jdbcType=VARCHAR}, #{flightNumber,jdbcType=VARCHAR}, 
+      #{flightLegFrom,jdbcType=VARCHAR}, #{flightLegTo,jdbcType=VARCHAR}, #{flightLegDep,jdbcType=TIMESTAMP}, 
+      #{flightLegArr,jdbcType=TIMESTAMP}, #{flightLegTakeoff,jdbcType=TIMESTAMP}, #{flightLegLanding,jdbcType=TIMESTAMP}, 
+      #{flightLegDepSchedule,jdbcType=TIMESTAMP}, #{flightLegArrSchedule,jdbcType=TIMESTAMP}, 
+      #{flightLegDepUtc,jdbcType=TIMESTAMP}, #{flightLegArrUtc,jdbcType=TIMESTAMP}, #{flightLegTakeoffUtc,jdbcType=TIMESTAMP}, 
+      #{flightLegLandingUtc,jdbcType=TIMESTAMP}, #{flightLegDepScheduleUtc,jdbcType=TIMESTAMP}, 
+      #{flightLegArrScheduleUtc,jdbcType=TIMESTAMP}, #{signature,jdbcType=VARCHAR}, #{recStatus,jdbcType=VARCHAR}, 
+      #{recUuid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.airchina.xn.model.Routineflightinfo">
+    update routineflightinfo
+    set Flight_Date = #{flightDate,jdbcType=DATE},
+      Type_Of_Aircraft = #{typeOfAircraft,jdbcType=VARCHAR},
+      Registered_Number = #{registeredNumber,jdbcType=VARCHAR},
+      Flight_Carrier = #{flightCarrier,jdbcType=VARCHAR},
+      Flight_Number = #{flightNumber,jdbcType=VARCHAR},
+      Flight_Leg_From = #{flightLegFrom,jdbcType=VARCHAR},
+      Flight_Leg_To = #{flightLegTo,jdbcType=VARCHAR},
+      Flight_Leg_Dep = #{flightLegDep,jdbcType=TIMESTAMP},
+      Flight_Leg_Arr = #{flightLegArr,jdbcType=TIMESTAMP},
+      Flight_Leg_Takeoff = #{flightLegTakeoff,jdbcType=TIMESTAMP},
+      Flight_Leg_Landing = #{flightLegLanding,jdbcType=TIMESTAMP},
+      Flight_Leg_Dep_Schedule = #{flightLegDepSchedule,jdbcType=TIMESTAMP},
+      Flight_Leg_Arr_Schedule = #{flightLegArrSchedule,jdbcType=TIMESTAMP},
+      Flight_Leg_Dep_UTC = #{flightLegDepUtc,jdbcType=TIMESTAMP},
+      Flight_Leg_Arr_UTC = #{flightLegArrUtc,jdbcType=TIMESTAMP},
+      Flight_Leg_Takeoff_UTC = #{flightLegTakeoffUtc,jdbcType=TIMESTAMP},
+      Flight_Leg_Landing_UTC = #{flightLegLandingUtc,jdbcType=TIMESTAMP},
+      Flight_Leg_Dep_Schedule_UTC = #{flightLegDepScheduleUtc,jdbcType=TIMESTAMP},
+      Flight_Leg_Arr_Schedule_UTC = #{flightLegArrScheduleUtc,jdbcType=TIMESTAMP},
+      Signature = #{signature,jdbcType=VARCHAR},
+      Rec_Status = #{recStatus,jdbcType=VARCHAR},
+      Rec_UUID = #{recUuid,jdbcType=VARCHAR},
+      Create_Time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, Flight_Date, Type_Of_Aircraft, Registered_Number, Flight_Carrier, Flight_Number, 
+    Flight_Leg_From, Flight_Leg_To, Flight_Leg_Dep, Flight_Leg_Arr, Flight_Leg_Takeoff, 
+    Flight_Leg_Landing, Flight_Leg_Dep_Schedule, Flight_Leg_Arr_Schedule, Flight_Leg_Dep_UTC, 
+    Flight_Leg_Arr_UTC, Flight_Leg_Takeoff_UTC, Flight_Leg_Landing_UTC, Flight_Leg_Dep_Schedule_UTC, 
+    Flight_Leg_Arr_Schedule_UTC, Signature, Rec_Status, Rec_UUID, Create_Time
+    from routineflightinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, Flight_Date, Type_Of_Aircraft, Registered_Number, Flight_Carrier, Flight_Number, 
+    Flight_Leg_From, Flight_Leg_To, Flight_Leg_Dep, Flight_Leg_Arr, Flight_Leg_Takeoff, 
+    Flight_Leg_Landing, Flight_Leg_Dep_Schedule, Flight_Leg_Arr_Schedule, Flight_Leg_Dep_UTC, 
+    Flight_Leg_Arr_UTC, Flight_Leg_Takeoff_UTC, Flight_Leg_Landing_UTC, Flight_Leg_Dep_Schedule_UTC, 
+    Flight_Leg_Arr_Schedule_UTC, Signature, Rec_Status, Rec_UUID, Create_Time
+    from routineflightinfo
+  </select>
+</mapper>
